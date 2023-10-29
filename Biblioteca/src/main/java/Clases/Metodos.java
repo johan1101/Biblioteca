@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Clases;
 
 import java.io.IOException;
@@ -28,4 +24,21 @@ public class Metodos {
         }
         return estado;
     }
+
+    public static String verificarIngreso(int cedula, String contrasena, ServletContext context) throws IOException {
+        ArrayList<Usuarios> UsuariosR = new ArrayList<>();
+
+        Persistencia.leerArchivo(UsuariosR, context);
+
+        String estado = "no";
+
+        for (Usuarios usuario : UsuariosR) {
+            if ((usuario.getCedula() == cedula) && (usuario.getContrasena().equals(contrasena))) {
+                estado = usuario.getNombreUsuario();
+                return estado;
+            }
+        }
+        return estado;
+    }
+
 }

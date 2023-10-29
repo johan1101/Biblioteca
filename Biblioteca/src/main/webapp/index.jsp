@@ -6,19 +6,19 @@
 </style>
 
 <div class = "wrapper">
-    <form action="">
+    <form action="SvRegistrarIngresar" method="POST">
         <h1>Ingresar</h1>
         <div class="input-box">
-            <input type="text" placeholder="Cedula" required>
+            <input type="text" name="cedula" placeholder="Cedula" maxlength="10" required pattern="[0-9]+" title="Solo se permiten números">
             <i class='bx bxs-user'></i>
         </div>
         <div class="input-box">
-            <input type="password" placeholder="Contraseña" required>
+            <input type="password" name="contrasena" placeholder="Contraseña" maxlength="20" required>
             <i class='bx bxs-lock-alt' ></i>
         </div>
         <button type="submit" class="btn">Iniciar</button>
         <div class="register-link">
-            <p>No tiene una cuenta? <a href="#" id="show-login" data-bs-toggle="modal" data-bs-target="#registrar">Regístrese aqui</a></p>
+            <p>No tiene una cuenta? <a href="#" type="button" id="show-login" data-bs-toggle="modal" data-bs-target="#registrar">Regístrese aqui</a></p>
         </div>
     </form>
 </div>
@@ -33,15 +33,15 @@
                         <h2>Registrar Cuenta</h2>
                         <div class="form-element">
                             <label for="email">Cedula</label>
-                            <input type="text" id="cedula" name="cedula" placeholder="Ingrese su cedula">
+                            <input type="text" id="cedula" name="cedula" placeholder="Ingrese su cedula" maxlength="10" required pattern="[0-9]+" title="Solo se permiten números">
                         </div>
                         <div class="form-element">
                             <label for="email">Nombre de usuario</label>
-                            <input type="text" id="name" name="nombre" placeholder="Ingresa tu nombre">
+                            <input type="text" id="name" name="nombre" placeholder="Ingresa tu nombre" maxlength="20" required>
                         </div>
                         <div class="form-element">
                             <label for="password">Contraseña</label>
-                            <input type="password" id="password" name="contrasena" placeholder="Ingresa tu contraseña">
+                            <input type="password" id="password" name="contrasena" placeholder="Ingresa tu contraseña" maxlength="20" required>
                         </div>
                         <div class="form-element">
                             <button type="submit">Registrar</button>
@@ -54,6 +54,30 @@
 </form>
 
 <script>
+
+    function usuarioNoCorrecto() {
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        // Mostrar una notificación Toastr de error
+        toastr.error('La cedula o contraseña no son correctas', 'No ha podido ingresar');
+
+    }
 
     function usuarioR() {
         toastr.options = {
@@ -75,10 +99,10 @@
         };
 
         toastr.success('Se ha registrado exitosamente!', 'Registrado');
+
     }
 
     function usuarioNoR() {
-
         toastr.options = {
             "closeButton": false,
             "debug": false,
@@ -104,7 +128,7 @@
 </script>
 <%
     
-    String estado = (String) request.getAttribute("estado");
+    String estado = (String) session.getAttribute("estado");
 
     if (estado == null) {
         estado = "no";
@@ -118,22 +142,30 @@
     });
 </script>
 <%
-        // Elimina el atributo "estado" del objeto request
-        request.removeAttribute("estado");
     }
 
     if (estado.equals("siRegistrado")) {
 %>
 <script>
-$(document).ready(function () {
-usuarioR();
-});
+    $(document).ready(function () {
+        usuarioR();
+    });
 </script>
 <%
-        // Elimina el atributo "estado" del objeto request
-        request.removeAttribute("estado");
     }
-%>
 
+    if (estado.equals("noValidado")) {
+%>
+<script>
+    $(document).ready(function () {
+        usuarioNoCorrecto();
+    });
+</script>
+<%
+    }
+
+        // Elimina el atributo "estado" del objeto request
+        session.removeAttribute("estado");
+%>
 <!-- Inclución de la plantilla de footer -->
 <%@include file= "templates/footer.jsp" %>

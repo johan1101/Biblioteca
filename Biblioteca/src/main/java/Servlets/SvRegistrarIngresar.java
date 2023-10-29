@@ -49,7 +49,7 @@ public class SvRegistrarIngresar extends HttpServlet {
         if (estado == true) {
             String mostrarToastr = "noRegistrado";
 
-            request.setAttribute("estado", mostrarToastr);
+            session.setAttribute("estado", mostrarToastr);
 
         } else {
             ArrayList<Usuarios> usuarioNuevo = new ArrayList<>();
@@ -64,12 +64,10 @@ public class SvRegistrarIngresar extends HttpServlet {
 
             String mostrarToastr = "siRegistrado";
 
-            request.setAttribute("estado", mostrarToastr);
+            session.setAttribute("estado", mostrarToastr);
         }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
-
+        response.sendRedirect("index.jsp");
     }
 
     //Validar usuario
@@ -77,5 +75,32 @@ public class SvRegistrarIngresar extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
+        HttpSession session = request.getSession();
+
+        //Obtener el contexto del servlet
+        ServletContext context = getServletContext();
+
+        int cedula = Integer.parseInt(request.getParameter("cedula"));
+
+        String contrasena = request.getParameter("contrasena");
+
+        String check = Metodos.verificarIngreso(cedula, contrasena, context);
+
+        System.out.println(check);
+
+        if (!check.equals("no")) {
+
+            // Establece los atributos en el objeto request
+            session.setAttribute("nombreUsuario", check);
+            response.sendRedirect("biblioteca.jsp");
+
+        } else {
+            String validacion = "noValidado";
+            request.setAttribute("estado", validacion);
+
+            session.setAttribute("estado", "noValidado");
+            response.sendRedirect("index.jsp");
+        }
     }
 }
