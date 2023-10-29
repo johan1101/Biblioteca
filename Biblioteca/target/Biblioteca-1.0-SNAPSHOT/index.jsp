@@ -103,6 +103,7 @@
 
 </script>
 <%
+    
     String estado = (String) request.getAttribute("estado");
 
     if (estado == null) {
