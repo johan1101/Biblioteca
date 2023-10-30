@@ -1,40 +1,85 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Clases;
-
-import java.io.Serializable;
 
 /**
  *
- * @author 
+* @author Karoll Gabriela - Ana Cristina - Johan Ordoñez
  */
-public class Lista implements Serializable {
+public class Lista {
     
-    private Nodo cabeza;
-    
-    private class Nodo implements Serializable{
-        
-        public Libros libro;
-        public Nodo siguiente = null; // Apunta al siguiente
-        public Nodo anterior = null;  // Apunta al anterior
+    private Libros primerNodo;
+    private Libros ultimoNodo;
 
-        // Constructor
-        public Nodo(Libros libro) {
-            this.libro = libro;
+    public Lista() {
+        primerNodo = null;
+        ultimoNodo = null;
+    }
+
+    public boolean estaVacia() {
+        return primerNodo == null;
+    }
+
+    public void agregarAlFinal(Libros libro) {
+        if (estaVacia()) {
+            primerNodo = libro;
+            ultimoNodo = libro;
+        } else {
+            libro.setAnterior(ultimoNodo);
+            ultimoNodo.setSiguiente(libro);
+            ultimoNodo = libro;
         }
     }
-    
-    public void insertarPrincipio(Libros libro) {
-    Nodo nodo = new Nodo(libro);
-    
-    if (cabeza == null) {
-        cabeza = nodo;
-    } else {
-        nodo.siguiente = cabeza;
-        cabeza.anterior = nodo; // Establecer la referencia anterior en el nodo actual de la cabeza
-        cabeza = nodo; // Actualizar la cabeza para que sea el nuevo nodo
+
+    public void agregarAlInicio(Libros libro) {
+        if (estaVacia()) {
+            primerNodo = libro;
+            ultimoNodo = libro;
+        } else {
+            libro.setSiguiente(primerNodo);
+            primerNodo.setAnterior(libro);
+            primerNodo = libro;
+        }
     }
-}
+
+    public void eliminar(Libros libro) {
+        if (!estaVacia()) {
+            if (libro == primerNodo) {
+                primerNodo = libro.getSiguiente();
+                if (primerNodo != null) {
+                    primerNodo.setAnterior(null);
+                }
+            } else if (libro == ultimoNodo) {
+                ultimoNodo = libro.getAnterior();
+                if (ultimoNodo != null) {
+                    ultimoNodo.setSiguiente(null);
+                }
+            } else {
+                Libros anterior = libro.getAnterior();
+                Libros siguiente = libro.getSiguiente();
+                anterior.setSiguiente(siguiente);
+                siguiente.setAnterior(anterior);
+            }
+        }
+    }
+
+    public void mostrarListaHaciaAdelante() {
+        Libros actual = primerNodo;
+        while (actual != null) {
+            System.out.println("Título: " + actual.getTitulo());
+            System.out.println("Autor: " + actual.getAutor());
+            System.out.println("Año de Publicación: " + actual.getAñoPublicacion());
+            System.out.println("Foto de Portada: " + actual.getFotoPortada());
+            actual = actual.getSiguiente();
+        }
+    }
+
+    public void mostrarListaHaciaAtrás() {
+        Libros actual = ultimoNodo;
+        while (actual != null) {
+            System.out.println("Título: " + actual.getTitulo());
+            System.out.println("Autor: " + actual.getAutor());
+            System.out.println("Año de Publicación: " + actual.getAñoPublicacion());
+            System.out.println("Foto de Portada: " + actual.getFotoPortada());
+            actual = actual.getAnterior();
+        }
+    }
 }

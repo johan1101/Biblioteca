@@ -7,7 +7,7 @@
 
 <div class = "wrapper">
     <form action="SvVerificarIngreso" method="POST">
-        <h1>Ingresar</h1>
+        <h1>Ingresar</h1><br>
         <div class="input-box">
             <input type="text" name="cedula" placeholder="Cedula" maxlength="10" required pattern="[0-9]+" title="Solo se permiten números">
             <i class='bx bxs-user'></i>
@@ -16,9 +16,10 @@
             <input type="password" name="contrasena" placeholder="Contraseña" maxlength="20" required>
             <i class='bx bxs-lock-alt' ></i>
         </div>
-        <button type="submit" class="btn">Iniciar</button>
-        <div class="register-link">
-            <p>No tiene una cuenta? <a href="#" type="button" id="show-login" data-bs-toggle="modal" data-bs-target="#registrar">Regístrese aqui</a></p>
+        <br><button type="submit" class="btn">Iniciar</button><br>
+        <br><div class="register-link">
+            <p>¿No tiene una cuenta?</p> 
+            <p><a href="#" type="button" id="show-login" data-bs-toggle="modal" data-bs-target="#registrar">Regístrese aqui</a><p>
         </div>
     </form>
 </div>
