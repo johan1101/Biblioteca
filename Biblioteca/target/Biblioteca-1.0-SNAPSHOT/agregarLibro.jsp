@@ -64,7 +64,7 @@
     </div>
 </div>
 
-<form action ="SvAgregarLibro" method = "POST">
+<form action ="SvAgregarLibro" method = "POST" enctype="multipart/form-data">
     <div class="container-fluid booking mt-5 pb-5">
         <div class="container pb-5">
             <div class="bg-light shadow" style="padding: 30px;">

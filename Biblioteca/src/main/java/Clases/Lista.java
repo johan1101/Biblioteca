@@ -1,10 +1,12 @@
 package Clases;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Karoll Gabriela - Ana Cristina - Johan Ordoñez
  */
-public class Lista {
+public class Lista implements Serializable {
 
     private Libros primerNodo;
     private Libros ultimoNodo;
@@ -99,7 +101,7 @@ public class Lista {
                 resultado += "<p class='m-0'>Título: " + libro.getTitulo() + "</p>";
                 resultado += "<p class='m-0'>Autor: " + libro.getAutor() + "</p>";
                 resultado += "<p class='m-0'>Año de Publicación: " + libro.getAñoPublicacion() + "</p>";
-                resultado += "<img src='" + libro.getFotoPortada() + "' alt='Portada del libro'>";
+                resultado += "<img src='imgLibros/" + libro.getFotoPortada() + "' alt='Portada del libro' style='width: 100%;/>";
                 resultado += "<a href='" + libro.getFotoPortada() + "' target='_blank' class='btn btn-primary py-md-3 px-md-5 mt-2'>Ver Portada</a>";
                 resultado += "</div>";
                 resultado += "</div>";
