@@ -42,23 +42,31 @@ public class Lista implements Serializable {
         }
     }
 
-    public void eliminar(Libros libro) {
+    public void eliminarLibro(int codigo) {
         if (!estaVacia()) {
-            if (libro == primerNodo) {
-                primerNodo = libro.getSiguiente();
-                if (primerNodo != null) {
-                    primerNodo.setAnterior(null);
+            Libros libro = primerNodo;
+
+            while (libro != null) {
+                if (libro.getCodigo() == codigo) {
+                    if (libro == primerNodo) {
+                        primerNodo = libro.getSiguiente();
+                        if (primerNodo != null) {
+                            primerNodo.setAnterior(null);
+                        }
+                    } else if (libro == ultimoNodo) {
+                        ultimoNodo = libro.getAnterior();
+                        if (ultimoNodo != null) {
+                            ultimoNodo.setSiguiente(null);
+                        }
+                    } else {
+                        Libros anterior = libro.getAnterior();
+                        Libros siguiente = libro.getSiguiente();
+                        anterior.setSiguiente(siguiente);
+                        siguiente.setAnterior(anterior);
+                    }
+                    break; // Importante: detener el bucle después de eliminar el libro
                 }
-            } else if (libro == ultimoNodo) {
-                ultimoNodo = libro.getAnterior();
-                if (ultimoNodo != null) {
-                    ultimoNodo.setSiguiente(null);
-                }
-            } else {
-                Libros anterior = libro.getAnterior();
-                Libros siguiente = libro.getSiguiente();
-                anterior.setSiguiente(siguiente);
-                siguiente.setAnterior(anterior);
+                libro = libro.getSiguiente();
             }
         }
     }
@@ -68,7 +76,7 @@ public class Lista implements Serializable {
         while (actual != null) {
             System.out.println("Título: " + actual.getTitulo());
             System.out.println("Autor: " + actual.getAutor());
-            System.out.println("Año de Publicación: " + actual.getAñoPublicacion());
+            System.out.println("Año de Publicación: " + actual.getAnioPublicacion());
             System.out.println("Foto de Portada: " + actual.getFotoPortada());
             actual = actual.getSiguiente();
         }
@@ -79,7 +87,7 @@ public class Lista implements Serializable {
         while (actual != null) {
             System.out.println("Título: " + actual.getTitulo());
             System.out.println("Autor: " + actual.getAutor());
-            System.out.println("Año de Publicación: " + actual.getAñoPublicacion());
+            System.out.println("Año de Publicación: " + actual.getAnioPublicacion());
             System.out.println("Foto de Portada: " + actual.getFotoPortada());
             actual = actual.getAnterior();
         }
@@ -105,12 +113,12 @@ public class Lista implements Serializable {
                 resultado += "<ul class='dropdown-menu'>";
                 resultado += "<li><button class='dropdown-item' type='button'>Editar</button></li>";
                 resultado += "<li><button class='dropdown-item' type='button'>Visualizar</button></li>";
-                resultado += "<li><button class='dropdown-item' type='button'>Eliminar</button></li>";
+                resultado += "<li><button class='dropdown-item' type='button' onclick='eliminar(" + libro.getCodigo() + ")'>Eliminar</button></li>";
                 resultado += "</ul>";
                 resultado += "</div>";
                 resultado += "<p class='m-0'>Título: " + libro.getTitulo() + "</p>";
                 resultado += "<p class='m-0'>Autor: " + libro.getAutor() + "</p>";
-                resultado += "<p class='m-0'>Año de Publicación:" + libro.getAñoPublicacion() + "</p>";
+                resultado += "<p class='m-0'>Año de Publicación:" + libro.getAnioPublicacion() + "</p>";
                 resultado += "<img src='imgLibros/" + libro.getFotoPortada() + "'alt='Portada del libro' style='width: 70%; height: 230px;'/>";
                 resultado += "<a href='" + libro.getFotoPortada() + "' target='_blank' class='btn btn-primary py-md-3 px-md-5 mt-2'>Ver Portada</a>";
                 resultado += "</div>";
@@ -125,5 +133,17 @@ public class Lista implements Serializable {
             resultado += "</div>";
         }
         return resultado;
+    }
+
+    public int obtenerLongitud() {
+        int longitud = 0;
+        Libros actual = primerNodo; // Comienza desde el primer nodo
+
+        while (actual != null) {
+            longitud++;
+            actual = actual.getSiguiente();
+        }
+
+        return longitud;
     }
 }

@@ -5,9 +5,9 @@
 <%@include file= "templates/header.jsp" %>
 
 <style>
-.dropdown-left {
-    text-align: left; /* Alinea el texto del dropdown a la izquierda */
-}
+    .dropdown-left {
+        text-align: left; /* Alinea el texto del dropdown a la izquierda */
+    }
 </style>
 
 <!-- Google Web Fonts -->
@@ -109,6 +109,27 @@
     <!-- Botón que envia a la página de agregarLibro para agregar un nuevo libro -->
     <a href='agregarLibro.jsp' class='btn btn-primary py-md-3 px-md-5 mt-2'>Agregar libro</a><br>
 </center><br><br>
+
+<script>
+    function eliminar(opcion) {
+
+        var eliminar = opcion;
+
+        // Realiza una solicitud AJAX al servlet para realizar la ordenación alfabética
+        $.ajax({
+            url: 'SvEliminar?opcion=' + eliminar,
+            method: 'POST', // Utiliza POST u otro método HTTP según corresponda
+            success: function (data) {
+                location.reload();
+            },
+            error: function () {
+                // En caso de error en la solicitud:
+                // Registra un mensaje de error en la consola (para fines de depuración)
+                console.log('Error al realizar la ordenación alfabética.');
+            }
+        });
+    }
+</script>
 
 <!-- Inclución de la plantilla de footer -->
 <%@include file= "templates/footer.jsp" %>

@@ -1,14 +1,14 @@
-
 package Clases;
 
 import java.io.Serializable;
 
 /**
  *
-* @author Karoll Gabriela - Ana Cristina - Johan Ordoñez
+ * @author Karoll Gabriela - Ana Cristina - Johan Ordoñez
  */
-public class Libros  implements Serializable{
- 
+public class Libros implements Serializable {
+
+    private int codigo;
     private String titulo;
     private String autor;
     private String anioPublicacion;
@@ -19,7 +19,8 @@ public class Libros  implements Serializable{
     public Libros() {
     }
 
-    public Libros(String titulo, String autor, String anioPublicacion, String fotoPortada) {
+    public Libros(int codigo, String titulo, String autor, String anioPublicacion, String fotoPortada) {
+        this.codigo = codigo;
         this.titulo = titulo;
         this.autor = autor;
         this.anioPublicacion = anioPublicacion;
@@ -28,6 +29,22 @@ public class Libros  implements Serializable{
         this.anterior = null;
     }
 
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getAnioPublicacion() {
+        return anioPublicacion;
+    }
+
+    public void setAnioPublicacion(String anioPublicacion) {
+        this.anioPublicacion = anioPublicacion;
+    }
+    
     public String getTitulo() {
         return titulo;
     }
@@ -42,14 +59,6 @@ public class Libros  implements Serializable{
 
     public void setAutor(String autor) {
         this.autor = autor;
-    }
-
-    public String getAñoPublicacion() {
-        return anioPublicacion;
-    }
-
-    public void setAñoPublicacion(String añoPublicacion) {
-        this.anioPublicacion = añoPublicacion;
     }
 
     public String getFotoPortada() {

@@ -98,7 +98,11 @@ public class SvAgregarLibro extends HttpServlet {
         }
         System.out.println(fileName);
         
-        Libros libro = new Libros(titulo, autor, fecha, fileName);
+        int longitud = listaEnlazada.obtenerLongitud();
+        
+        longitud = longitud + 1;
+        
+        Libros libro = new Libros(longitud, titulo, autor, fecha, fileName);
         
         listaEnlazada.agregarAlFinal(libro);
         Serializacion.escribirArchivoLibros(listaEnlazada, context);

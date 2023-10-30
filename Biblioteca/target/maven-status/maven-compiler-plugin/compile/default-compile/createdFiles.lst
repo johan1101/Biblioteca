@@ -1,11 +1,12 @@
-com\mycompany\mundo\resources\JavaEE8Resource.class
 Clases\Metodos.class
-Clases\Lista.class
 com\mycompany\mundo\JAXRSConfiguration.class
 Clases\Libros.class
-Clases\Persistencia.class
-Servlets\SvVerificarIngreso.class
-Servlets\SvAgregarLibro.class
 Clases\Serializacion.class
 Servlets\SvRegistrar.class
+com\mycompany\mundo\resources\JavaEE8Resource.class
+Clases\Lista.class
+Clases\Persistencia.class
+Servlets\SvVerificarIngreso.class
+Servlets\SvEliminar.class
+Servlets\SvAgregarLibro.class
 Clases\Usuarios.class
