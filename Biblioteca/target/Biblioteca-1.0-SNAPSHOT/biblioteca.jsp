@@ -5,6 +5,7 @@
 <%@include file= "templates/header.jsp" %>
 
 <style>
+    <%@include file= "style/biblioteca.css" %>
     .dropdown-left {
         text-align: left; /* Alinea el texto del dropdown a la izquierda */
     }
@@ -110,10 +111,36 @@
     <a href='agregarLibro.jsp' class='btn btn-primary py-md-3 px-md-5 mt-2'>Agregar libro</a><br>
 </center><br><br>
 
-<script>
-    function eliminar(opcion) {
+<!-- Modal para eliminar un libro -->
+<div class="modal fade" id="eliminar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="eliminarLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="popup">
+                <div class="form">
+                    <h2>¿Seguro que quieres eliminar este libro?</h2>
+                    <div class="form-element" style="display: flex; justify-content: space-between;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 10px;">Cancelar</button>
+                        <button type="button" class="btn btn-danger" style="margin-left: 10px;" onclick="eliminar()">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-        var eliminar = opcion;
+<script>
+
+   var codigoEliminar;
+    function mostrarModalEliminar(opcion) {
+        
+        $('#eliminar').modal('show');
+        
+        codigoEliminar = opcion;
+    }
+
+    function eliminar() {
+
+        var eliminar = codigoEliminar;
 
         // Realiza una solicitud AJAX al servlet para realizar la ordenación alfabética
         $.ajax({

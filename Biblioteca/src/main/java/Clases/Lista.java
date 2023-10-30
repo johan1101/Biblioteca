@@ -113,7 +113,7 @@ public class Lista implements Serializable {
                 resultado += "<ul class='dropdown-menu'>";
                 resultado += "<li><button class='dropdown-item' type='button'>Editar</button></li>";
                 resultado += "<li><button class='dropdown-item' type='button'>Visualizar</button></li>";
-                resultado += "<li><button class='dropdown-item' type='button' onclick='eliminar(" + libro.getCodigo() + ")'>Eliminar</button></li>";
+                resultado += "<li><button class='dropdown-item' type='button' onclick='mostrarModalEliminar(" + libro.getCodigo() + ")'>Eliminar</button></li>";
                 resultado += "</ul>";
                 resultado += "</div>";
                 resultado += "<p class='m-0'>Título: " + libro.getTitulo() + "</p>";

@@ -74,20 +74,23 @@
                             <!-- Cajas de texto donde se añadira toda la información del video agregado -->
                             <div class="col-md-3">
                                 <div>
-                                    <input type="text" class="form-control p-4" name="titulo" id="titulo" placeholder="Titulo del libro"
+                                    <label>Titulo</label>
+                                    <input type="text" class="form-control p-4" name="titulo" id="titulo" placeholder="Ingrese el titulo"
                                            required="required" data-validation-required-message="Porfavor escriba el titulo del libro" required/>
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div>
-                                    <input type="text" class="form-control p-4" name="autor" id="autor" placeholder="Autor"
+                                    <label>Autor</label>
+                                    <input type="text" class="form-control p-4" name="autor" id="autor" placeholder="Ingrese el autor"
                                            required="required" data-validation-required-message="Porfavor escriba el autor del libro" />
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div>
+                                    <label>Año de publicacion</label>
                                     <input type="date" class="form-control p-4" name="anioPublicacion" id="anioPublicacion" placeholder="Año de publicación"
                                            required="required" data-validation-required-message="Porfavor escriba el año de publicación" />
                                     <p class="help-block text-danger"></p>
@@ -96,6 +99,7 @@
                             <div class="col-md-3">
                                 <div class="mb-3 mb-md-0">
                                     <div>
+                                        <label>Imagen</label>
                                         <input type="file" class="form-control p-4" name="fotoPortada" id="fotoPortada" placeholder="Imagen de Portada"
                                                required="required" data-validation-required-message="Porfavor ingrese la imagen del libro" accept=".jpg, .jpeg, .png"/>
                                         <p class="help-block text-danger"></p>
