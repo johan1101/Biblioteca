@@ -96,12 +96,22 @@ public class Lista implements Serializable {
 
         if (libro != null) {
             while (libro != null) {
-                resultado += "<div class='col-lg-4 col-md-6 mb-4' style='margin-right: 30px;'>";
-                resultado += "<div class='service-item bg-white text-center mb-2 py-5 px-4'>";
+                resultado += "<div class='col-lg-4 col-md-6 mb-4' style='margin-right: 0px;'>";
+                resultado += "<div class='service-item bg-white text-center mb-2 py-3 px-4'>";
+                resultado += "<div class='dropdown dropdown-left'>"; // Agrega la clase 'dropdown-left'
+                resultado += "<button class='btn btn-secondary dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>";
+                resultado += "";
+                resultado += "</button>";
+                resultado += "<ul class='dropdown-menu'>";
+                resultado += "<li><button class='dropdown-item' type='button'>Editar</button></li>";
+                resultado += "<li><button class='dropdown-item' type='button'>Visualizar</button></li>";
+                resultado += "<li><button class='dropdown-item' type='button'>Eliminar</button></li>";
+                resultado += "</ul>";
+                resultado += "</div>";
                 resultado += "<p class='m-0'>Título: " + libro.getTitulo() + "</p>";
                 resultado += "<p class='m-0'>Autor: " + libro.getAutor() + "</p>";
-                resultado += "<p class='m-0'>Año de Publicación: " + libro.getAñoPublicacion() + "</p>";
-                resultado += "<img src='imgLibros/" + libro.getFotoPortada() + "' alt='Portada del libro' style='width: 100%;/>";
+                resultado += "<p class='m-0'>Año de Publicación:" + libro.getAñoPublicacion() + "</p>";
+                resultado += "<img src='imgLibros/" + libro.getFotoPortada() + "'alt='Portada del libro' style='width: 70%; height: 230px;'/>";
                 resultado += "<a href='" + libro.getFotoPortada() + "' target='_blank' class='btn btn-primary py-md-3 px-md-5 mt-2'>Ver Portada</a>";
                 resultado += "</div>";
                 resultado += "</div>";
