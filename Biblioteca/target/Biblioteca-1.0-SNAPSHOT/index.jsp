@@ -164,7 +164,6 @@
 </script>
 <%
     }
-
         // Elimina el atributo "estado" del objeto request
         session.removeAttribute("estado");
 %>
