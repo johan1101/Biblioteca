@@ -5,7 +5,6 @@ import Clases.Persistencia;
 import Clases.Usuarios;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,8 +17,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author Johan Ordoñez
  */
-@WebServlet(name = "SvRegistrarIngresar", urlPatterns = {"/SvRegistrarIngresar"})
-public class SvRegistrarIngresar extends HttpServlet {
+@WebServlet(name = "SvRegistrar", urlPatterns = {"/SvRegistrar"})
+public class SvRegistrar extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -31,7 +30,14 @@ public class SvRegistrarIngresar extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        System.out.println("Ejecutando registro de usuario");
+
+    }
+
+    //Validar usuario
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
 
         HttpSession session = request.getSession();
 
@@ -68,39 +74,5 @@ public class SvRegistrarIngresar extends HttpServlet {
         }
 
         response.sendRedirect("index.jsp");
-    }
-
-    //Validar usuario
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-
-        HttpSession session = request.getSession();
-
-        //Obtener el contexto del servlet
-        ServletContext context = getServletContext();
-
-        int cedula = Integer.parseInt(request.getParameter("cedula"));
-
-        String contrasena = request.getParameter("contrasena");
-
-        String check = Metodos.verificarIngreso(cedula, contrasena, context);
-
-        System.out.println(check);
-
-        if (!check.equals("no")) {
-
-            // Establece los atributos en el objeto request
-            session.setAttribute("nombreUsuario", check);
-            response.sendRedirect("biblioteca.jsp");
-
-        } else {
-            String validacion = "noValidado";
-            request.setAttribute("estado", validacion);
-
-            session.setAttribute("estado", "noValidado");
-            response.sendRedirect("index.jsp");
-        }
     }
 }

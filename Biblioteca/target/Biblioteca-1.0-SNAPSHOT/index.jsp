@@ -6,7 +6,7 @@
 </style>
 
 <div class = "wrapper">
-    <form action="SvRegistrarIngresar" method="POST">
+    <form action="SvVerificarIngreso" method="POST">
         <h1>Ingresar</h1>
         <div class="input-box">
             <input type="text" name="cedula" placeholder="Cedula" maxlength="10" required pattern="[0-9]+" title="Solo se permiten números">
@@ -23,7 +23,7 @@
     </form>
 </div>
 
-<form action="SvRegistrarIngresar" method="GET">
+<form action="SvRegistrar" method="POST">
     <div class="modal fade" id="registrar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="registrarLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
