@@ -5,6 +5,7 @@ com\mycompany\mundo\JAXRSConfiguration.class
 Clases\Libros.class
 Clases\Persistencia.class
 Servlets\SvVerificarIngreso.class
+Servlets\SvAgregarLibro.class
 Clases\Serializacion.class
 Servlets\SvRegistrar.class
 Clases\Usuarios.class

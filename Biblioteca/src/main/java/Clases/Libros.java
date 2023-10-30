@@ -11,7 +11,7 @@ public class Libros  implements Serializable{
  
     private String titulo;
     private String autor;
-    private String añoPublicacion;
+    private String anioPublicacion;
     private String fotoPortada;
     public Libros siguiente;
     public Libros anterior;
@@ -19,10 +19,10 @@ public class Libros  implements Serializable{
     public Libros() {
     }
 
-    public Libros(String titulo, String autor, String añoPublicacion, String fotoPortada) {
+    public Libros(String titulo, String autor, String anioPublicacion, String fotoPortada) {
         this.titulo = titulo;
         this.autor = autor;
-        this.añoPublicacion = añoPublicacion;
+        this.anioPublicacion = anioPublicacion;
         this.fotoPortada = fotoPortada;
         this.siguiente = null;
         this.anterior = null;
@@ -45,11 +45,11 @@ public class Libros  implements Serializable{
     }
 
     public String getAñoPublicacion() {
-        return añoPublicacion;
+        return anioPublicacion;
     }
 
     public void setAñoPublicacion(String añoPublicacion) {
-        this.añoPublicacion = añoPublicacion;
+        this.anioPublicacion = añoPublicacion;
     }
 
     public String getFotoPortada() {

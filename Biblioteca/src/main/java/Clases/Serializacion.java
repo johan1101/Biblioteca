@@ -20,7 +20,7 @@ import javax.servlet.ServletContext;
  */
 public class Serializacion {
 
-    public static void escribirArchivo(Lista listaLibros, ServletContext context) throws FileNotFoundException, IOException {
+    public static void escribirArchivoLibros(Lista listaLibros, ServletContext context) throws FileNotFoundException, IOException {
         // Ruta relativa y absoluta del archivo de datos serializados
         String rutaRelativa = "/data/librosAgregados.ser";
         String rutaAbsoluta = context.getRealPath(rutaRelativa);
@@ -34,7 +34,7 @@ public class Serializacion {
         }
     }
 
-    public static Lista leerTareas(ServletContext context) throws IOException, ClassNotFoundException {
+    public static Lista leerArchivoLibros(ServletContext context) throws IOException, ClassNotFoundException {
         Lista listaLibros = new Lista();
         // Ruta relativa y absoluta del archivo de datos serializados
         String rutaRelativa = "/data/librosAgregados.ser";
