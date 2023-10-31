@@ -106,7 +106,7 @@ public class Lista implements Serializable {
             while (libro != null) {
                 resultado += "<div class='col-lg-4 col-md-6 mb-4' style='margin-right: 0px;'>";
                 resultado += "<div class='service-item bg-white text-center mb-2 py-3 px-4'>";
-                resultado += "<div class='dropdown dropdown-right'>"; // Agrega la clase 'dropdown-left'
+                resultado += "<div class='dropdown dropdown-left'>"; // Agrega la clase 'dropdown-left'
                 resultado += "<button class='btn btn-secondary dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>";
                 resultado += "";
                 resultado += "</button>";
