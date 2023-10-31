@@ -3,6 +3,7 @@ com\mycompany\mundo\JAXRSConfiguration.class
 Clases\Libros.class
 Clases\Serializacion.class
 Servlets\SvRegistrar.class
+Servlets\SvEditar.class
 com\mycompany\mundo\resources\JavaEE8Resource.class
 Clases\Lista.class
 Clases\Persistencia.class

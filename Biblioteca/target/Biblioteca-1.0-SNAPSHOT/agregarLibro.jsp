@@ -91,7 +91,7 @@
                             <div class="col-md-3">
                                 <div>
                                     <label>Año de publicacion</label>
-                                    <input type="date" class="form-control p-4" name="anioPublicacion" id="anioPublicacion" placeholder="Año de publicación"
+                                    <input type="date" class="form-control p-4" name="anioPublicacion" id="anioPublicacion" placeholder="Fecha de publicación"
                                            required="required" data-validation-required-message="Porfavor escriba el año de publicación" />
                                     <p class="help-block text-danger"></p>
                                 </div>
