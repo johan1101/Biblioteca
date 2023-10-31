@@ -1,3 +1,4 @@
+
 package Servlets;
 
 import Clases.Metodos;
@@ -13,10 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Johan Ordoñez
- */
 @WebServlet(name = "SvRegistrar", urlPatterns = {"/SvRegistrar"})
 public class SvRegistrar extends HttpServlet {
 

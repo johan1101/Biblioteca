@@ -41,10 +41,10 @@
             <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                 <div class="navbar-nav ml-auto py-0">
                     <!-- Enlaces del menú superior que dirigen a las paginas inico y otras -->
-                    <a href="index.jsp" class="nav-item nav-link">Inicio</a> 
+                    <a href="inicio.jsp" class="nav-item nav-link">Inicio</a> 
                     <a href="agregarLibro.jsp" class="nav-item nav-link active">Agregar libro</a> 
                     <a href="biblioteca.jsp" class="nav-item nav-link">Listado de libros</a> 
-                    <a href="Generos.jsp" class="nav-item nav-link">Buscar</a>
+                    <a href="#" class="nav-item nav-link">Buscar</a>
                 </div>
             </div>
         </nav>
@@ -111,7 +111,7 @@
                     <div class="col-md-2">
                         <!-- Botón que culmina la tarea de agregar el video -->
                         <button class="btn btn-primary btn-block" type="submit" style="height: 47px; margin-top: -2px;">Agregar</button>
-                        <a href='index.jsp' class="btn btn-primary btn-block" type="submit" style="height: 47px; margin-top: 20px;">Regresar</a>
+                        <a href='inicio.jsp' class="btn btn-primary btn-block" type="submit" style="height: 47px; margin-top: 20px;">Regresar</a>
                     </div>
                 </div>
             </div>

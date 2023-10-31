@@ -65,10 +65,10 @@
             <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                 <div class="navbar-nav ml-auto py-0">
                     <!-- Enlaces del menú superior que dirigen a las paginas inico y otras -->
-                    <a href="index.jsp" class="nav-item nav-link">Inicio</a> 
+                    <a href="inicio.jsp" class="nav-item nav-link">Inicio</a> 
                     <a href="agregarLibro.jsp" class="nav-item nav-link">Agregar libro</a> 
                     <a href="biblioteca.jsp" class="nav-item nav-link active">Listado de libros</a> 
-                    <a href="Generos.jsp" class="nav-item nav-link">Buscar</a>
+                    <a href="#" class="nav-item nav-link">Buscar</a>
                 </div>
             </div>
         </nav>
@@ -105,7 +105,7 @@
 </div>
 <center>
     <!-- Botón que redirige a la página inicial (index) -->
-    <a href='index.jsp' class='btn btn-primary py-md-3 px-md-5 mt-2'style='margin-right: 30px;'>Regresar</a>
+    <a href='inicio.jsp' class='btn btn-primary py-md-3 px-md-5 mt-2'style='margin-right: 30px;'>Regresar</a>
 
     <!-- Botón que envia a la página de agregarLibro para agregar un nuevo libro -->
     <a href='agregarLibro.jsp' class='btn btn-primary py-md-3 px-md-5 mt-2'>Agregar libro</a><br>

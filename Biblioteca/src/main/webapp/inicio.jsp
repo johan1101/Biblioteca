@@ -105,7 +105,7 @@
                     <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Biblioteca online</h6>
                     <h1 class="mb-3">Disfruta de todos lo libros que encontraras en nuestra biblioteca online</h1>
                     <p>Tenemos libros de todos los géneros para que puedas leerlos una y otra vez, disfruta de las historias que tienen preparadas los autores más conocidos de la literatura mundial. No tengas miedo y atrevete a volar a otro mundo.</p>
-                    <a href="" class="btn btn-primary mt-1">Book Now</a>
+                    <a href="biblioteca.jsp" class="btn btn-primary mt-1">Leer ahora</a>
                 </div>
             </div>
         </div>

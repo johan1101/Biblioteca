@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
+
 package Servlets;
 
 import Clases.Metodos;
@@ -14,10 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Johan Ordoñez
- */
 @WebServlet(name = "SvVerificarIngreso", urlPatterns = {"/SvVerificarIngreso"})
 public class SvVerificarIngreso extends HttpServlet {
 
@@ -55,7 +48,7 @@ public class SvVerificarIngreso extends HttpServlet {
 
             // Establece los atributos en el objeto request
             session.setAttribute("nombreUsuario", check);
-            response.sendRedirect("biblioteca.jsp");
+            response.sendRedirect("inicio.jsp");
 
         } else {
             String validacion = "noValidado";
