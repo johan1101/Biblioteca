@@ -1,6 +1,13 @@
 package Clases;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
+import javax.servlet.ServletContext;
+import javax.servlet.http.Part;
 
 /**
  *
@@ -145,5 +152,42 @@ public class Lista implements Serializable {
         }
 
         return longitud;
+    }
+
+    public void editarLibro(int codigo, String nuevoTitulo, String nuevoAutor, String nuevaFecha, String imagen, ServletContext context, Part filePart) throws FileNotFoundException, IOException {
+        // Directorio de carga en el servidor donde se guardarán las imágenes
+
+        if (!estaVacia()) {
+            Libros libro = primerNodo;
+
+            while (libro != null) {
+                if (libro.getCodigo() == codigo) {
+
+                    libro.setTitulo(nuevoTitulo);
+                    libro.setAutor(nuevoAutor);
+                    libro.setAnioPublicacion(nuevaFecha);
+                    libro.setFotoPortada(imagen);
+
+                    String uploadPath = context.getRealPath("/imgLibros");
+
+                    // Construir la ruta completa del archivo de imagen en el servidor
+                    String filePath = uploadPath + File.separator + imagen;
+
+                    //Abrir un flujo de entrada para el archivo de imagen recibido
+                    try (InputStream fileContent = filePart.getInputStream(); FileOutputStream outputStream = new FileOutputStream(filePath)) {
+
+                        int read;
+                        byte[] buffer = new byte[1024];
+
+                        //Leer el archivo de imagen y escribirlo en el servidor
+                        while ((read = fileContent.read(buffer)) != -1) {
+                            outputStream.write(buffer, 0, read);
+                        }
+                    }
+                }
+                libro = libro.getSiguiente();
+            }
+        }
+
     }
 }

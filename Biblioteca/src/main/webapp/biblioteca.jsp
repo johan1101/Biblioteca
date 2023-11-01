@@ -131,36 +131,51 @@
 <div class="modal fade" id="editar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editarLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form id="fileUploadForm" enctype="multipart/form-data">
-                <div class="popup" >
-                    <div class="close-btn" class="btn-close" data-bs-dismiss="modal">&times;</div>
-                    <div class="form">
+            <div class="popup" >
+                <div class="close-btn" class="btn-close" data-bs-dismiss="modal">&times;</div>
+                <div class="form">
+                    <form action="SvEditar" method="POST" enctype="multipart/form-data">
                         <h2>Editar libro</h2>
                         <div class="form-element">
                             <label for="email">Titulo</label>
-                            <input type="text" id="nuevoTitulo" name="cedula" placeholder="Ingrese el nuevo titulo" maxlength="10" required>
+                            <input type="text" id="nuevoTitulo" name="nuevoTitulo" placeholder="Ingrese el nuevo titulo" maxlength="10" required>
                         </div>
                         <div class="form-element">
                             <label for="email">Autor</label>
-                            <input type="text" id="nuevoAutor" name="nombre" placeholder="Ingrese el nuevo autor" maxlength="20" required>
+                            <input type="text" id="nuevoAutor" name="nuevoAutor" placeholder="Ingrese el nuevo autor" maxlength="20" required>
                         </div>
                         <div class="form-element">
                             <label for="email">Fecha de publicación</label>
-                            <br><input type="date" id="nuevaFecha" name="contrasena" placeholder="Ingresa tu contraseña" required>
+                            <br><input type="date" id="nuevaFecha" name="nuevaFecha" placeholder="Ingresa tu contraseña" required>
                         </div>
                         <div class="form-element">
                             <label for="email">Imagen</label>
                             <br><input type="file" id="imagen" name="imagen" placeholder="Ingresa tu nombre" maxlength="20" required>
                         </div>
                         <div class="form-element">
-                            <button type="submit" onclick="editarLibro()">Editar</button>
+                            <button type="submit">Editar</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
+
+<%
+    String valorCodigo = request.getParameter("codigoE");
+
+    if (valorCodigo != null) {
+%>
+
+<script>
+    $(document).ready(function () {
+        mostrarModal();
+    });
+</script>
+<%
+    }
+%>
 
 <script>
 
@@ -191,50 +206,23 @@
         });
     }
 
-    var codigoE
+    var codigoE = "";
     function mostrarModalEditar(codigo) {
+        codigoE = codigo;
         $('#editar').modal('show');
-        var codigoE = codigo;
-    }
+        
+                $.ajax({
+            url: 'SvEditar?codigo=' + codigo,
+            method: 'GET', // Utiliza POST u otro método HTTP según corresponda
+            success: function (data) {
 
-    function editarLibro() {
-        var codigoEditar = codigoE;
-        var form = document.getElementById("fileUploadForm");
-        // Verificar la validez del formulario
-        if (form.checkValidity()) {
-
-            // Obtén el formulario
-            var form = document.getElementById("fileUploadForm");
-            // Construye un objeto FormData con el formulario
-            var formData = new FormData(form);
-
-            var nuevoTitulo = document.getElementById('nuevoTitulo').value;
-            var nuevoAutor = document.getElementById('nuevoAutor').value;
-            var nuevaFecha = document.getElementById('nuevaFecha').value;
-
-            formData.append('nuevoTitulo', nuevoTitulo);
-            formData.append('nuevoAutor', nuevoAutor);
-            formData.append('nuevaFecha', nuevaFecha);
-            $.ajax({
-                url: 'SvEditar', // URL del servlet que manejará la edición de la foto
-                method: 'POST', // Utiliza POST para enviar datos de formulario
-                data: formData, // Envía los datos del formulario incluyendo el archivo y el nombre
-                contentType: false, // Establece el tipo de contenido como false para que jQuery maneje automáticamente el encabezado
-                processData: false, // No procesa los datos, ya que FormData lo hace automáticamente
-                success: function (data) {
-                    // En caso de éxito en la solicitud:
-                    // Cierra el modal de edición de foto
-                    $('#editar').modal('hide');
-                    // Recarga la página actual para reflejar los cambios
-                    location.reload();
-                },
-                error: function () {
-                    // En caso de error en la solicitud:
-                    // Registra un mensaje de error en la consola (para fines de depuración)
-                    console.log('Error al editar la foto del perro.');
-                }
-            });
-        }
+            },
+            error: function () {
+                // En caso de error en la solicitud:
+                // Registra un mensaje de error en la consola (para fines de depuración)
+                console.log('Error al realizar la ordenación alfabética.');
+            }
+        });
     }
 
 </script>
