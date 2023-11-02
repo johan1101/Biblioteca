@@ -1,4 +1,3 @@
-
 package Servlets;
 
 import Clases.Metodos;
@@ -46,8 +45,11 @@ public class SvVerificarIngreso extends HttpServlet {
 
         if (!check.equals("no")) {
 
+            int codigo = Metodos.codigo(cedula, contrasena, context);
+
             // Establece los atributos en el objeto request
             session.setAttribute("nombreUsuario", check);
+            session.setAttribute("codigoUsuario", codigo);
             response.sendRedirect("inicio.jsp");
 
         } else {

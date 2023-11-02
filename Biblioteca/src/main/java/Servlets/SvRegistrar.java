@@ -58,8 +58,12 @@ public class SvRegistrar extends HttpServlet {
             ArrayList<Usuarios> usuarioNuevo = new ArrayList<>();
 
             Persistencia.leerArchivo(usuarioNuevo, context);
+            
+            int numeroUsuario = usuarioNuevo.size();
+            
+            numeroUsuario = numeroUsuario + 1;
 
-            Usuarios usuario = new Usuarios(cedula, nombre, contrasena);
+            Usuarios usuario = new Usuarios(numeroUsuario, cedula, nombre, contrasena);
 
             usuarioNuevo.add(usuario);
 

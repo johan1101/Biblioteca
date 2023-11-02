@@ -10,6 +10,7 @@ package Clases;
  */
 public class Usuarios {
 
+    private int codigo;
     private int cedula;
     private String nombreUsuario;
     private String contrasena;
@@ -17,12 +18,23 @@ public class Usuarios {
     public Usuarios() {
     }
 
-    public Usuarios(int cedula, String nombreUsuario, String contrasena) {
+    public Usuarios(int codigo, int cedula, String nombreUsuario, String contrasena) {
+        this.codigo = codigo;
         this.cedula = cedula;
         this.nombreUsuario = nombreUsuario;
         this.contrasena = contrasena;
     }
 
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    
+    
     public int getCedula() {
         return cedula;
     }

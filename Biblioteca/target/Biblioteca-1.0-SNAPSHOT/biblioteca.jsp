@@ -96,8 +96,10 @@
         </div>
         <div class="row">
             <%
+// Recuperar el valor del atributo "codigo" de la sesión
+                int codigoUsuario = (int) session.getAttribute("codigoUsuario");
                 // Llama al método MostrarLista() para generar la representación HTML de la lista de libros
-                String listaLibrosHTML = listaEnlazada.MostrarLista();
+                String listaLibrosHTML = listaEnlazada.MostrarLista(codigoUsuario);
                 out.println(listaLibrosHTML);
             %>
         </div>
@@ -210,8 +212,8 @@
     function mostrarModalEditar(codigo) {
         codigoE = codigo;
         $('#editar').modal('show');
-        
-                $.ajax({
+
+        $.ajax({
             url: 'SvEditar?codigo=' + codigo,
             method: 'GET', // Utiliza POST u otro método HTTP según corresponda
             success: function (data) {

@@ -1,4 +1,3 @@
-
 package Servlets;
 
 import Clases.Libros;
@@ -19,13 +18,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
 
 @WebServlet(name = "SvAgregarLibro", urlPatterns = {"/SvAgregarLibro"})
 @MultipartConfig
 public class SvAgregarLibro extends HttpServlet {
-    
+
     // Crear una instancia de la clase ListasEnlazadas
     Lista listaEnlazada = new Lista();
 
@@ -37,7 +36,7 @@ public class SvAgregarLibro extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SvAgregarLibro</title>");            
+            out.println("<title>Servlet SvAgregarLibro</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet SvAgregarLibro at " + request.getContextPath() + "</h1>");
@@ -52,11 +51,10 @@ public class SvAgregarLibro extends HttpServlet {
         processRequest(request, response);
     }
 
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         // Obtener el contexto del servlet
         ServletContext context = getServletContext();
 
@@ -68,14 +66,14 @@ public class SvAgregarLibro extends HttpServlet {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(SvAgregarLibro.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         // Obtener los datos del formulario enviados por POST
         String titulo = request.getParameter("titulo");
         String autor = request.getParameter("autor");
         String fecha = request.getParameter("anioPublicacion");
         //Obtener la parte del archivo de imagen desde la solicitud
         Part filePart = request.getPart("fotoPortada");
-        
+
         // Directorio de carga en el servidor donde se guardarán las imágenes
         String uploadPath = context.getRealPath("/imgLibros");
 
@@ -97,16 +95,23 @@ public class SvAgregarLibro extends HttpServlet {
             }
         }
         System.out.println(fileName);
-        
+
         int longitud = listaEnlazada.obtenerLongitud();
-        
+
         longitud = longitud + 1;
+
+        HttpSession session = request.getSession(); // Obtener la sesión existente o crear una nueva si no existe
+
+// Recuperar el valor del atributo "codigo" de la sesión
+        int codigoUsuario = (int) session.getAttribute("codigoUsuario");
         
-        Libros libro = new Libros(longitud, titulo, autor, fecha, fileName);
-        
+        System.out.println("Este es el codigo de usuario: " + codigoUsuario);
+
+        Libros libro = new Libros(codigoUsuario, longitud, titulo, autor, fecha, fileName);
+
         listaEnlazada.agregarAlFinal(libro);
         Serializacion.escribirArchivoLibros(listaEnlazada, context);
-        
+
         response.sendRedirect("biblioteca.jsp");
     }
 
