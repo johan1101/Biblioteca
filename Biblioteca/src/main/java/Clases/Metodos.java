@@ -40,5 +40,21 @@ public class Metodos {
         }
         return estado;
     }
+    
+        public static int codigo(int cedula, String contrasena, ServletContext context) throws IOException {
+        ArrayList<Usuarios> UsuariosR = new ArrayList<>();
+
+        Persistencia.leerArchivo(UsuariosR, context);
+
+        int codigo = 0;
+
+        for (Usuarios usuario : UsuariosR) {
+            if ((usuario.getCedula() == cedula) && (usuario.getContrasena().equals(contrasena))) {
+                codigo = usuario.getCodigo();
+                return codigo;
+            }
+        }
+        return codigo;
+    }
 
 }

@@ -105,31 +105,34 @@ public class Lista implements Serializable {
      *
      * @return Cadena HTML que representa las tareas en la lista
      */
-    public String MostrarLista() {
+    public String MostrarLista(int codigoUsuario) {
+
         Libros libro = this.primerNodo;
         String resultado = "";
 
         if (libro != null) {
             while (libro != null) {
-                resultado += "<div class='col-lg-4 col-md-6 mb-4' style='margin-right: 0px;'>";
-                resultado += "<div class='service-item bg-white text-center mb-2 py-3 px-4'>";
-                resultado += "<div class='dropdown dropdown-left'>"; // Agrega la clase 'dropdown-left'
-                resultado += "<button class='btn btn-secondary dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>";
-                resultado += "";
-                resultado += "</button>";
-                resultado += "<ul class='dropdown-menu'>";
-                resultado += "<li><button class='dropdown-item' type='button' onclick='mostrarModalEditar(" + libro.getCodigo() + ")'>Editar</button></li>";
-                resultado += "<li><button class='dropdown-item' type='button'>Visualizar</button></li>";
-                resultado += "<li><button class='dropdown-item' type='button' onclick='mostrarModalEliminar(" + libro.getCodigo() + ")'>Eliminar</button></li>";
-                resultado += "</ul>";
-                resultado += "</div>";
-                resultado += "<h3 class='m-0'>Título: " + libro.getTitulo() + "</h3><br>";
-                resultado += "<p class='m-0'>Autor: " + libro.getAutor() + "</p>";
-                resultado += "<p class='m-0'>Año de Publicación:" + libro.getAnioPublicacion() + "</p><br>";
-                resultado += "<img src='imgLibros/" + libro.getFotoPortada() + "'alt='Portada del libro' style='width: 70%; height: 230px;'/>";
-                resultado += "<br><br><a href='" + libro.getFotoPortada() + "' target='_blank' class='btn btn-primary py-md-3 px-md-5 mt-2'>Ver Portada</a>";
-                resultado += "</div>";
-                resultado += "</div>";
+                if (codigoUsuario == libro.getCodigoUsuario()) {
+                    resultado += "<div class='col-lg-4 col-md-6 mb-4' style='margin-right: 0px;'>";
+                    resultado += "<div class='service-item bg-white text-center mb-2 py-3 px-4'>";
+                    resultado += "<div class='dropdown dropdown-left'>"; // Agrega la clase 'dropdown-left'
+                    resultado += "<button class='btn btn-secondary dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>";
+                    resultado += "";
+                    resultado += "</button>";
+                    resultado += "<ul class='dropdown-menu'>";
+                    resultado += "<li><button class='dropdown-item' type='button' onclick='mostrarModalEditar(" + libro.getCodigo() + ")'>Editar</button></li>";
+                    resultado += "<li><button class='dropdown-item' type='button'>Visualizar</button></li>";
+                    resultado += "<li><button class='dropdown-item' type='button' onclick='mostrarModalEliminar(" + libro.getCodigo() + ")'>Eliminar</button></li>";
+                    resultado += "</ul>";
+                    resultado += "</div>";
+                    resultado += "<h3 class='m-0'>Título: " + libro.getTitulo() + "</h3><br>";
+                    resultado += "<p class='m-0'>Autor: " + libro.getAutor() + "</p>";
+                    resultado += "<p class='m-0'>Año de Publicación:" + libro.getAnioPublicacion() + "</p><br>";
+                    resultado += "<img src='imgLibros/" + libro.getFotoPortada() + "'alt='Portada del libro' style='width: 70%; height: 230px;'/>";
+                    resultado += "<br><br><a href='" + libro.getFotoPortada() + "' target='_blank' class='btn btn-primary py-md-3 px-md-5 mt-2'>Ver Portada</a>";
+                    resultado += "</div>";
+                    resultado += "</div>";
+                }
                 libro = libro.siguiente;
             }
         } else if (libro == null) {

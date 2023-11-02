@@ -24,6 +24,7 @@
                     <p><i></i>Todos los libros</p>
                     <p class="text-body px-3">|</p>
                     <p><i></i>que puedas imaginar</p>
+                    </div>
                 </div>
             </div>
         </div>

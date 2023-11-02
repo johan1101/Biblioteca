@@ -30,7 +30,7 @@ public class Persistencia {
             // Iterar a través de la lista de usuario y escribir sus datos en el archivo
             for (Usuarios usuario : misUsuarios) {
                 // Formatear los datos del alumno en una línea y escribir en el archivo
-                String linea = usuario.getCedula() + "," + usuario.getNombreUsuario() + ","
+                String linea = usuario.getCodigo() + "," + usuario.getCedula() + "," + usuario.getNombreUsuario() + ","
                         + usuario.getContrasena();
                 pluma.println(linea);
             }
@@ -55,12 +55,13 @@ public class Persistencia {
             while ((linea = lector.readLine()) != null) {
                 String[] datos = linea.split(",");
 
-                String cedula = datos[0].trim();
-                String nombre = datos[1].trim();
-                String contrasenia = datos[2].trim();
+                String codigo = datos[0].trim();
+                String cedula = datos[1].trim();
+                String nombre = datos[2].trim();
+                String contrasenia = datos[3].trim();
 
                 // Crear un objeto Usuario con los datos leídos y agregarlo a la lista
-                Usuarios usuario = new Usuarios(Integer.parseInt(cedula), nombre, contrasenia);
+                Usuarios usuario = new Usuarios(Integer.parseInt(codigo),Integer.parseInt(cedula), nombre, contrasenia);
                 misUsuarios.add(usuario);
             }
 
