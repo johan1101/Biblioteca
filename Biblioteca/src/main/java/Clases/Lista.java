@@ -114,7 +114,7 @@ public class Lista implements Serializable {
             while (libro != null) {
                 if (codigoUsuario == libro.getCodigoUsuario()) {
                     resultado += "<div class='col-lg-4 col-md-6 mb-4' style='margin-right: 0px;'>";
-                    resultado += "<div class='service-item bg-white text-center mb-2 py-3 px-4'>";
+                    resultado += "<div class='cardList service-item bg-white text-center mb-2 py-3 px-4'>";
                     resultado += "<div class='dropdown dropdown-left'>"; // Agrega la clase 'dropdown-left'
                     resultado += "<button class='btn btn-secondary dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>";
                     resultado += "";
@@ -127,9 +127,9 @@ public class Lista implements Serializable {
                     resultado += "</div>";
                     resultado += "<h3 class='m-0'>Título: " + libro.getTitulo() + "</h3><br>";
                     resultado += "<p class='m-0'>Autor: " + libro.getAutor() + "</p>";
-                    resultado += "<p class='m-0'>Año de Publicación:" + libro.getAnioPublicacion() + "</p><br>";
+                    resultado += "<p class='m-0'>Año de Publicación: " + libro.getAnioPublicacion() + "</p><br>";
                     resultado += "<img src='imgLibros/" + libro.getFotoPortada() + "'alt='Portada del libro' style='width: 70%; height: 230px;'/>";
-                    resultado += "<br><br><a href='" + libro.getFotoPortada() + "' target='_blank' class='btn btn-primary py-md-3 px-md-5 mt-2'>Ver Portada</a>";
+                    resultado += "<br><br><a href='#' target='_blank' class='btn btn-outline-primary py-md-3 px-md-5 mt-2'>Prestamo</a><br><br>";
                     resultado += "</div>";
                     resultado += "</div>";
                 }

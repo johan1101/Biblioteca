@@ -24,7 +24,6 @@
                     <p><i></i>Todos los libros</p>
                     <p class="text-body px-3">|</p>
                     <p><i></i>que puedas imaginar</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -43,10 +42,24 @@
             <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                 <div class="navbar-nav ml-auto py-0">
                     <!-- Enlaces del menú superior que dirigen a las paginas inico y otras -->
-                    <a href="inicio.jsp" class="nav-item nav-link active">Inicio</a> 
+                    <a href="inicio.jsp" class="nav-item nav-link ac3tive">Inicio</a> 
                     <a href="agregarLibro.jsp" class="nav-item nav-link">Agregar libro</a> 
-                    <a href="biblioteca.jsp" class="nav-item nav-link">Listado de libros</a> 
-                    <a href="Generos.jsp" class="nav-item nav-link">Buscar</a>
+                    <a href="biblioteca.jsp" class="nav-item nav-link">Listado de libros</a>
+                    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <center>
+                                        <img src="./img/imagenUsua.jpeg" alt="" width="160px" height="150px" style="display: block; margin: 0 auto; margin-right: 10px; margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
+                                    </center>
+                                </li>
+                                <li><a style="text-align: center;" class="dropdown-item heading-section"><%= session.getAttribute("nombreUsuario")%></a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a style="text-align: left;" class="dropdown-item left-align" href="index.jsp">Cerrar sesión</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>

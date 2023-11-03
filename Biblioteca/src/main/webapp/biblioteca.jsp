@@ -9,6 +9,14 @@
     .dropdown-left {
         text-align: left; /* Alinea el texto del dropdown a la izquierda */
     }
+
+    .cardList{
+        border-radius: 12px;
+    }
+
+    .gx-5 {
+        --bs-gutter-y: 2rem;
+    }
 </style>
 
 <!-- Google Web Fonts -->
@@ -37,6 +45,8 @@
     if (listaEnlazada == null) {
         listaEnlazada = new Lista();
     }
+
+
 %>
 
 <div class="container-fluid bg-light pt-3 d-none d-lg-block">
@@ -67,8 +77,22 @@
                     <!-- Enlaces del menú superior que dirigen a las paginas inico y otras -->
                     <a href="inicio.jsp" class="nav-item nav-link">Inicio</a> 
                     <a href="agregarLibro.jsp" class="nav-item nav-link">Agregar libro</a> 
-                    <a href="biblioteca.jsp" class="nav-item nav-link active">Listado de libros</a> 
-                    <a href="#" class="nav-item nav-link">Buscar</a>
+                    <a href="biblioteca.jsp" class="nav-item nav-link active">Listado de libros</a>
+                    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <center>
+                                        <img src="./img/imagenUsua.jpeg" alt="" width="160px" height="150px" style="display: block; margin: 0 auto; margin-right: 10px; margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
+                                    </center>
+                                </li>
+                                <li><a style="text-align: center;" class="dropdown-item heading-section"><%= session.getAttribute("nombreUsuario")%></a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a style="text-align: left;" class="dropdown-item left-align" href="index.jsp">Cerrar sesión</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -89,14 +113,24 @@
 </div>
 
 <div class="container-fluid py-5">
+    <div class="row justify-content-end">
+        <div class="col-lg-3 col-md-2 col-sm-2 mb-2" style="margin-right: 250px;">
+            <div class="input-group"> 
+                <input style="height: 48px;" type="text" class="form-control" id="busqueda" placeholder="Buscar">
+                <button style="height: 48px;" class="btn btn-primary float-right" type="submit">Buscar</button>
+            </div>
+        </div>
+    </div>
+
     <div class="container pt-5 pb-3">
         <div class="text-center mb-3 pb-3">
-            <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">Todas los libros registrados</h6>
-            <h1>Libros</h1>
+            <h5 class="text-primary text-uppercase" style="letter-spacing: 5px;">Todos los libros registrados</h5>
+            <h1>Libros</h1><br><br>
         </div>
-        <div class="row">
+
+        <div class="row gx-5 justify-content-center d-flex">
             <%
-// Recuperar el valor del atributo "codigo" de la sesión
+                // Recuperar el valor del atributo "codigo" de la sesión
                 int codigoUsuario = (int) session.getAttribute("codigoUsuario");
                 // Llama al método MostrarLista() para generar la representación HTML de la lista de libros
                 String listaLibrosHTML = listaEnlazada.MostrarLista(codigoUsuario);
@@ -105,6 +139,7 @@
         </div>
     </div>
 </div>
+
 <center>
     <!-- Botón que redirige a la página inicial (index) -->
     <a href='inicio.jsp' class='btn btn-primary py-md-3 px-md-5 mt-2'style='margin-right: 30px;'>Regresar</a>
@@ -140,7 +175,7 @@
                         <h2>Editar libro</h2>
                         <div class="form-element">
                             <label for="email">Titulo</label>
-                            <input type="text" id="nuevoTitulo" name="nuevoTitulo" placeholder="Ingrese el nuevo titulo" maxlength="10" required>
+                            <input type="text" id="nuevoTitulo" name="nuevoTitulo" placeholder="Ingrese el nuevo titulo" maxlength="20" required>
                         </div>
                         <div class="form-element">
                             <label for="email">Autor</label>
@@ -148,11 +183,11 @@
                         </div>
                         <div class="form-element">
                             <label for="email">Fecha de publicación</label>
-                            <br><input type="date" id="nuevaFecha" name="nuevaFecha" placeholder="Ingresa tu contraseña" required>
+                            <br><input type="date" id="nuevaFecha" name="nuevaFecha" required>
                         </div>
                         <div class="form-element">
                             <label for="email">Imagen</label>
-                            <br><input type="file" id="imagen" name="imagen" placeholder="Ingresa tu nombre" maxlength="20" required>
+                            <br><input type="file" id="imagen" name="imagen" maxlength="20" required>
                         </div>
                         <div class="form-element">
                             <button type="submit">Editar</button>
