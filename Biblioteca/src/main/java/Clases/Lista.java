@@ -109,10 +109,12 @@ public class Lista implements Serializable {
 
         Libros libro = this.primerNodo;
         String resultado = "";
+        boolean usuarioTieneLibros = false; // Variable para verificar si el usuario tiene libros
 
         if (libro != null) {
             while (libro != null) {
                 if (codigoUsuario == libro.getCodigoUsuario()) {
+                    usuarioTieneLibros = true; // El usuario tiene al menos un libro
                     resultado += "<div class='col-lg-4 col-md-6 mb-4' style='margin-right: 0px;'>";
                     resultado += "<div class='cardList service-item bg-white text-center mb-2 py-3 px-4'>";
                     resultado += "<div class='dropdown dropdown-left'>"; // Agrega la clase 'dropdown-left'
@@ -135,7 +137,8 @@ public class Lista implements Serializable {
                 }
                 libro = libro.siguiente;
             }
-        } else if (libro == null) {
+        }
+        if (libro == null && !usuarioTieneLibros) {
             resultado += "<div class='col-12'>";
             resultado += "<div class='alert alert-info' role='alert'>";
             resultado += "No se encontraron libros registrados.";
@@ -191,6 +194,25 @@ public class Lista implements Serializable {
                 libro = libro.getSiguiente();
             }
         }
+    }
 
+    /**
+     * Verifica si un usuario específico tiene libros en la lista.
+     *
+     * @param codigoUsuario El código del usuario que se desea verificar.
+     * @return true si el usuario tiene libros en la lista, de lo contrario,
+     * false.
+     */
+    public boolean verificarUsuario(int codigoUsuario) {
+        Libros libro = this.primerNodo;
+
+        while (libro != null) {
+            if (codigoUsuario == libro.getCodigoUsuario()) {
+                return true; // El usuario tiene al menos un libro
+            }
+            libro = libro.siguiente;
+        }
+
+        return false; // El usuario no tiene libros en la lista
     }
 }

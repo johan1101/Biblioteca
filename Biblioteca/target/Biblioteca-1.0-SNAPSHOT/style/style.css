@@ -7587,7 +7587,7 @@ button.bg-dark:focus {
 
 .pt-5,
 .py-5 {
-  padding-top: 4rem !important;
+  padding-top: 2rem !important;
 }
 
 .pr-5,
@@ -9569,7 +9569,7 @@ h6,
 }
 
 .page-header {
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)), url(../img/imagen.jpeg), no-repeat center center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)), url(../img/carousel-3.jpg), no-repeat center center;
   background-size: cover;
 }
 

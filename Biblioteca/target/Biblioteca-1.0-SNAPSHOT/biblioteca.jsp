@@ -45,8 +45,6 @@
     if (listaEnlazada == null) {
         listaEnlazada = new Lista();
     }
-
-
 %>
 
 <div class="container-fluid bg-light pt-3 d-none d-lg-block">
@@ -83,15 +81,15 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 <li>
-                                    <center>
-                                        <img src="./img/imagenUsua.jpeg" alt="" width="160px" height="150px" style="display: block; margin: 0 auto; margin-right: 10px; margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
-                                    </center>
-                                </li>
-                                <li><a style="text-align: center;" class="dropdown-item heading-section"><%= session.getAttribute("nombreUsuario")%></a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a style="text-align: left;" class="dropdown-item left-align" href="index.jsp">Cerrar sesión</a></li>
-                            </ul>
+                                <center>
+                                    <img src="./img/imagenUsua.jpeg" alt="" width="160px" height="150px" style="display: block; margin: 0 auto; margin-right: 10px; margin-left: 10px; margin-top: 10px; margin-bottom: 10px">
+                                </center>
                         </li>
+                        <li><a style="text-align: center;" class="dropdown-item heading-section"><%= session.getAttribute("nombreUsuario")%></a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a style="text-align: left;" class="dropdown-item left-align" href="index.jsp">Cerrar sesión</a></li>
+                    </ul>
+                    </li>
                     </ul>
                 </div>
             </div>
@@ -114,17 +112,17 @@
 
 <div class="container-fluid py-5">
     <div class="row justify-content-end">
-        <div class="col-lg-3 col-md-2 col-sm-2 mb-2" style="margin-right: 250px;">
+        <div class="col-lg-3 col-md-2 col-sm-2 mb-2" style="margin-right: 250px; margin-top: 18px">
             <div class="input-group"> 
-                <input style="height: 48px;" type="text" class="form-control" id="busqueda" placeholder="Buscar">
-                <button style="height: 48px;" class="btn btn-primary float-right" type="submit">Buscar</button>
+                <input style="height: 45px;" type="text" class="form-control" id="busqueda" placeholder="Buscar">
+                <button style="height: 45px;" class="btn btn-primary float-right" type="submit">Buscar</button>
             </div>
         </div>
-    </div>
+    </div><br>
 
     <div class="container pt-5 pb-3">
         <div class="text-center mb-3 pb-3">
-            <h5 class="text-primary text-uppercase" style="letter-spacing: 5px;">Todos los libros registrados</h5>
+            <h5 class="text-primary text-uppercase" style="letter-spacing: 5px">Todos los libros registrados</h5>
             <h1>Libros</h1><br><br>
         </div>
 
