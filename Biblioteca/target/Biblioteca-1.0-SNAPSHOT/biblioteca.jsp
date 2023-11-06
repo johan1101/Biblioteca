@@ -76,6 +76,7 @@
                     <a href="inicio.jsp" class="nav-item nav-link">Inicio</a> 
                     <a href="agregarLibro.jsp" class="nav-item nav-link">Agregar libro</a> 
                     <a href="biblioteca.jsp" class="nav-item nav-link active">Listado de libros</a>
+                                        <a href="librosPrestamo.jsp" class="nav-item nav-link">Prestamos</a>
                     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
@@ -163,6 +164,42 @@
     </div>
 </div>
 
+<!-- Modal para pedir un libro -->
+<div class="modal fade" id="pedirLibro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="pedirLibroLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="popup">
+                <div class="form">
+                    <h2>¿Seguro que quieres pedir este libro?</h2>
+                    <div class="form-element" style="display: flex; justify-content: space-between;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 10px;">Cancelar</button>
+                        <button type="button" class="btn btn-danger" style="margin-left: 10px;" onclick="pedir()">Pedir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para devolver un libro -->
+<div class="modal fade" id="devolverLibro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="devolverLibroLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="popup">
+                <div class="form">
+                    <h2>¿Seguro que quieres devolver este libro?</h2>
+                    <div class="form-element" style="display: flex; justify-content: space-between;">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="margin-right: 10px;">Cancelar</button>
+                        <button type="button" class="btn btn-danger" style="margin-left: 10px;" onclick="devolver()">Devolver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <div class="modal fade" id="editar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editarLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -229,6 +266,60 @@
         // Realiza una solicitud AJAX al servlet para realizar la ordenación alfabética
         $.ajax({
             url: 'SvEliminar?opcion=' + eliminar,
+            method: 'POST', // Utiliza POST u otro método HTTP según corresponda
+            success: function (data) {
+                location.reload();
+            },
+            error: function () {
+                // En caso de error en la solicitud:
+                // Registra un mensaje de error en la consola (para fines de depuración)
+                console.log('Error al realizar la ordenación alfabética.');
+            }
+        });
+    }
+    
+    var codigoPedir;
+    function mostrarModalPedir(codigo) {
+
+        $('#pedirLibro').modal('show');
+
+         codigoPedir = codigo;
+    }
+    
+        function pedir() {
+
+        var codigoP = codigoPedir;
+
+        // Realiza una solicitud AJAX al servlet para realizar la ordenación alfabética
+        $.ajax({
+            url: 'SvPedirLibro?codigo=' + codigoP,
+            method: 'POST', // Utiliza POST u otro método HTTP según corresponda
+            success: function (data) {
+                location.reload();
+            },
+            error: function () {
+                // En caso de error en la solicitud:
+                // Registra un mensaje de error en la consola (para fines de depuración)
+                console.log('Error al realizar la ordenación alfabética.');
+            }
+        });
+    }
+    
+    var codigoDevolver;
+    function mostrarModalDevolver(codigo) {
+
+        $('#devolverLibro').modal('show');
+
+         codigoDevolver = codigo;
+    }
+    
+        function devolver() {
+
+        var codigo = codigoDevolver;
+
+        // Realiza una solicitud AJAX al servlet para realizar la ordenación alfabética
+        $.ajax({
+            url: 'SvDevolverLibro?codigo=' + codigo,
             method: 'POST', // Utiliza POST u otro método HTTP según corresponda
             success: function (data) {
                 location.reload();

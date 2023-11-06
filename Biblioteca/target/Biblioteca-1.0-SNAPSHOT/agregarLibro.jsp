@@ -70,6 +70,7 @@
                     <a href="inicio.jsp" class="nav-item nav-link">Inicio</a> 
                     <a href="agregarLibro.jsp" class="nav-item nav-link active">Agregar libro</a> 
                     <a href="biblioteca.jsp" class="nav-item nav-link">Listado de libros</a>
+                                        <a href="librosPrestamo.jsp" class="nav-item nav-link">Prestamos</a>
                     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>

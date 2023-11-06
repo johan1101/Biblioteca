@@ -8,7 +8,8 @@ import java.io.Serializable;
  */
 public class Libros implements Serializable {
 
-   private int codigoUsuario;
+    private String estadoLibro;
+    private int codigoUsuario;
     private int codigo;
     private String titulo;
     private String autor;
@@ -20,7 +21,8 @@ public class Libros implements Serializable {
     public Libros() {
     }
 
-    public Libros(int codigoUsuario, int codigo, String titulo, String autor, String anioPublicacion, String fotoPortada) {
+    public Libros(String estadoLibro, int codigoUsuario, int codigo, String titulo, String autor, String anioPublicacion, String fotoPortada) {
+        this.estadoLibro = estadoLibro;
         this.codigoUsuario = codigoUsuario;
         this.codigo = codigo;
         this.titulo = titulo;
@@ -31,6 +33,14 @@ public class Libros implements Serializable {
         this.anterior = null;
     }
 
+    public String getEstadoLibro() {
+        return estadoLibro;
+    }
+
+    public void setEstadoLibro(String estadoLibro) {
+        this.estadoLibro = estadoLibro;
+    }
+    
     public int getCodigoUsuario() {
         return codigoUsuario;
     }

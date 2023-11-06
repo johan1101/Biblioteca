@@ -6,8 +6,10 @@ Servlets\SvRegistrar.class
 Servlets\SvEditar.class
 com\mycompany\mundo\resources\JavaEE8Resource.class
 Clases\Lista.class
+Servlets\SvPedirLibro.class
 Clases\Persistencia.class
 Servlets\SvVerificarIngreso.class
 Servlets\SvEliminar.class
 Servlets\SvAgregarLibro.class
+Servlets\SvDevolverLibro.class
 Clases\Usuarios.class

@@ -70,6 +70,7 @@ public class SvAgregarLibro extends HttpServlet {
         // Obtener los datos del formulario enviados por POST
         String posicion = request.getParameter("posicion"); // Esto recoge la selección del radio button
 
+        String estadoLibro = "pedir";
         String titulo = request.getParameter("titulo");
         String autor = request.getParameter("autor");
         String fecha = request.getParameter("anioPublicacion");
@@ -109,7 +110,7 @@ public class SvAgregarLibro extends HttpServlet {
 
         System.out.println("Este es el codigo de usuario: " + codigoUsuario);
 
-        Libros libro = new Libros(codigoUsuario, longitud, titulo, autor, fecha, fileName);
+        Libros libro = new Libros(estadoLibro, codigoUsuario, longitud, titulo, autor, fecha, fileName);
 
         if ("inicio".equals(posicion)) {
             listaEnlazada.agregarAlInicio(libro); // Agregar al inicio si se seleccionó esa opción
