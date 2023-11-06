@@ -31,24 +31,55 @@ public class SvAgregarLibro extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SvAgregarLibro</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SvAgregarLibro at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        // Obtener el contexto del servlet
+        ServletContext context = getServletContext();
+
+        System.out.println("Corriendo metodo visualizar");
+
+        try {
+            listaEnlazada = Serializacion.leerArchivoLibros(context);
+            if (listaEnlazada == null) {
+                listaEnlazada = new Lista();
+            }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SvAgregarLibro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // Obtener el código del libro desde los parámetros de la solicitud
+        String codigoS = request.getParameter("codigo");
+        int codigo = Integer.parseInt(codigoS);
+
+        // Utilizar el método buscarLibroPorCodigo para encontrar el libro
+        Libros libro = listaEnlazada.buscarLibroPorCodigo(codigo);
+
+        if (libro != null) {
+            // Genera la respuesta HTML con los detalles del libro
+            String libroHtml = "<div class='row'>"
+                    + "<div class='col-md-6'>"
+                    + "<img src='imgLibros/" + libro.getFotoPortada() + "'alt='Portada del libro' style='width: 100%; height: 450px;'/>"
+                    + "</div>"
+                    + "<div class='col-md-6 d-flex align-items-center justify-content-center'>"
+                    + "<div class='text-center'>"
+                    + "<h1>Título: " + libro.getTitulo() + "</h1><br>"
+                    + "<h5>Autor: " + libro.getAutor() + "</h5>"
+                    + "<h5>Año de Publicación: " + libro.getAnioPublicacion() + "</h5>"
+                    + "</div>"
+                    + "</div>"
+                    + "</div>";
+
+            response.setContentType("text/html");
+            response.getWriter().write(libroHtml);
+        } else {
+            // Maneja el caso en el que no se encuentra el libro
+            response.setContentType("text/plain");
+            response.getWriter().write("Libro no encontrado");
+        }
     }
 
     @Override

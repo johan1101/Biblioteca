@@ -17,6 +17,10 @@
     .gx-5 {
         --bs-gutter-y: 2rem;
     }
+
+    .modal-ancho .modal-dialog {
+        max-width: 50%; /* Ajusta el valor para el ancho deseado */
+    }
 </style>
 
 <!-- Google Web Fonts -->
@@ -76,7 +80,7 @@
                     <a href="inicio.jsp" class="nav-item nav-link">Inicio</a> 
                     <a href="agregarLibro.jsp" class="nav-item nav-link">Agregar libro</a> 
                     <a href="biblioteca.jsp" class="nav-item nav-link active">Listado de libros</a>
-                                        <a href="librosPrestamo.jsp" class="nav-item nav-link">Prestamos</a>
+                    <a href="librosPrestamo.jsp" class="nav-item nav-link">Prestamos</a>
                     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
@@ -147,6 +151,31 @@
     <a href='agregarLibro.jsp' class='btn btn-primary py-md-3 px-md-5 mt-2'>Agregar libro</a><br>
 </center><br><br>
 
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top" style="display: inline;"><i class="fa fa-angle-double-up"></i></a>
+
+
+<!----------------------------------------------------- VENTANAS MODALES ----------------------------------------------------->
+
+<!-- Modal para la visualización del libro -->
+<div class="modal fade modal-ancho" id="exampleModalDetalles" tabindex="-1" aria-labelledby="exampleModalLabelDetalles" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabelDetalles">Detalles del libro</h5>
+            </div>
+            <div class="modal-body">
+                <div id="libro-details">
+                    <!-- Aquí se mostrarán los detalles del libro -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Modal para eliminar un libro -->
 <div class="modal fade" id="eliminar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="eliminarLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -197,8 +226,6 @@
         </div>
     </div>
 </div>
-
-
 
 <div class="modal fade" id="editar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editarLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -277,16 +304,16 @@
             }
         });
     }
-    
+
     var codigoPedir;
     function mostrarModalPedir(codigo) {
 
         $('#pedirLibro').modal('show');
 
-         codigoPedir = codigo;
+        codigoPedir = codigo;
     }
-    
-        function pedir() {
+
+    function pedir() {
 
         var codigoP = codigoPedir;
 
@@ -304,16 +331,16 @@
             }
         });
     }
-    
+
     var codigoDevolver;
     function mostrarModalDevolver(codigo) {
 
         $('#devolverLibro').modal('show');
 
-         codigoDevolver = codigo;
+        codigoDevolver = codigo;
     }
-    
-        function devolver() {
+
+    function devolver() {
 
         var codigo = codigoDevolver;
 
@@ -351,6 +378,35 @@
         });
     }
 
+    /**
+     * Esta función se encarga de mostrar los detalles de un libro en una ventana modal.
+     * Se dispara cuando se muestra el modal.
+     */
+    $('#exampleModalDetalles').on('show.bs.modal', function (event) {
+        // Obtiene el botón que desencadenó el evento de mostrar el modal
+        var button = $(event.relatedTarget);
+
+        // Obtiene el código del libro desde el atributo 'data-nombre' del botón
+        var codigo = button.data('nombre');
+
+        // Realiza una solicitud AJAX al servlet para obtener los detalles del libro por su código
+        $.ajax({
+            url: 'SvAgregarLibro?codigo=' + codigo, // Utiliza 'codigo' en lugar de 'nombre'
+            method: 'GET', // Método HTTP utilizado para la solicitud
+            success: function (data) {
+                // La función que se ejecuta cuando la solicitud AJAX es exitosa
+
+                // Actualiza el contenido del modal con los detalles del libro
+                $('#libro-details').html(data);
+            },
+            error: function () {
+                // La función que se ejecuta en caso de error durante la solicitud AJAX
+
+                // Maneja errores aquí si es necesario, por ejemplo, muestra un mensaje en la consola
+                console.log('Error al cargar los detalles del libro');
+            }
+        });
+    });
 </script>
 
 <!-- Inclución de la plantilla de footer -->

@@ -149,7 +149,7 @@ public class Lista implements Serializable {
                     resultado += "</button>";
                     resultado += "<ul class='dropdown-menu'>";
                     resultado += "<li><button class='dropdown-item' type='button' onclick='mostrarModalEditar(" + libro.getCodigo() + ")'>Editar</button></li>";
-                    resultado += "<li><button class='dropdown-item' type='button'>Visualizar</button></li>";
+                    resultado += "<li><button class='dropdown-item' type='button' data-bs-toggle=\"modal\" data-bs-target=\"#exampleModalDetalles\" data-nombre='" + libro.getCodigo() + "'>Visualizar</button></li>";
                     resultado += "<li><button class='dropdown-item' type='button' onclick='mostrarModalEliminar(" + libro.getCodigo() + ")'>Eliminar</button></li>";
                     resultado += "</ul>";
                     resultado += "</div>";
@@ -197,7 +197,7 @@ public class Lista implements Serializable {
                     resultado += "</button>";
                     resultado += "<ul class='dropdown-menu'>";
                     resultado += "<li><button class='dropdown-item' type='button' onclick='mostrarModalEditar(" + libro.getCodigo() + ")'>Editar</button></li>";
-                    resultado += "<li><button class='dropdown-item' type='button'>Visualizar</button></li>";
+                    resultado += "<li><button class='dropdown-item' type='button' data-bs-toggle=\"modal\" data-bs-target=\"#exampleModalDetalles\" data-nombre='" + libro.getCodigo() + "'>Visualizar</button></li>";
                     resultado += "</ul>";
                     resultado += "</div>";
                     resultado += "<h3 class='m-0'>Título: " + libro.getTitulo() + "</h3><br>";
@@ -292,5 +292,18 @@ public class Lista implements Serializable {
         }
 
         return false; // El usuario no tiene libros en la lista
+    }
+    
+    // Método para buscar un libro por código en la lista
+    public Libros buscarLibroPorCodigo(int codigo) {
+        Libros libro = this.primerNodo;
+
+        while (libro != null) {
+            if (codigo == libro.getCodigo()) {
+                return libro;
+            }
+            libro = libro.siguiente;
+        }
+        return null; // El usuario no tiene libros en la lista
     }
 }
