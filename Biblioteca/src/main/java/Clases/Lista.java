@@ -90,8 +90,8 @@ public class Lista implements Serializable {
             libro = libro.siguiente;
         }
     }
-    
-        public void devolverLibro(int codigo) {
+
+    public void devolverLibro(int codigo) {
         int codigoPedir = codigo;
         Libros libro = this.primerNodo;
 
@@ -157,11 +157,11 @@ public class Lista implements Serializable {
                     resultado += "<p class='m-0'>Autor: " + libro.getAutor() + "</p>";
                     resultado += "<p class='m-0'>Año de Publicación: " + libro.getAnioPublicacion() + "</p><br>";
                     resultado += "<img src='imgLibros/" + libro.getFotoPortada() + "'alt='Portada del libro' style='width: 70%; height: 230px;'/>";
-                    if(libro.getEstadoLibro().equals("pedir")){
-                    resultado += "<br><br><a target='_blank' class='btn btn-outline-primary py-md-3 px-md-5 mt-2' onclick='mostrarModalPedir(" + libro.getCodigo() + ")'>Prestamo</a><br><br>";
+                    if (libro.getEstadoLibro().equals("pedir")) {
+                        resultado += "<br><br><a target='_blank' class='btn btn-outline-primary py-md-3 px-md-5 mt-2' onclick='mostrarModalPedir(" + libro.getCodigo() + ")'>Prestamo</a><br><br>";
                     }
-                    if(libro.getEstadoLibro().equals("devolver")){
-                    resultado += "<br><br><a target='_blank' class='btn btn-outline-danger py-md-3 px-md-5 mt-2' onclick='mostrarModalDevolver(" + libro.getCodigo() + ")'>Devolver</a><br><br>";
+                    if (libro.getEstadoLibro().equals("devolver")) {
+                        resultado += "<br><br><a target='_blank' class='btn btn-outline-danger py-md-3 px-md-5 mt-2' onclick='mostrarModalDevolver(" + libro.getCodigo() + ")'>Devolver</a><br><br>";
                     }
                     resultado += "</div>";
                     resultado += "</div>";
@@ -178,8 +178,8 @@ public class Lista implements Serializable {
         }
         return resultado;
     }
-    
-        public String MostrarListaPrestados(int codigoUsuario) {
+
+    public String MostrarListaPrestados(int codigoUsuario) {
 
         Libros libro = this.primerNodo;
         String resultado = "";
@@ -204,14 +204,62 @@ public class Lista implements Serializable {
                     resultado += "<p class='m-0'>Autor: " + libro.getAutor() + "</p>";
                     resultado += "<p class='m-0'>Año de Publicación: " + libro.getAnioPublicacion() + "</p><br>";
                     resultado += "<img src='imgLibros/" + libro.getFotoPortada() + "'alt='Portada del libro' style='width: 70%; height: 230px;'/>";
-                    if(libro.getEstadoLibro().equals("pedir")){
-                    resultado += "<br><br><a target='_blank' class='btn btn-outline-primary py-md-3 px-md-5 mt-2' onclick='mostrarModalPedir(" + libro.getCodigo() + ")'>Prestamo</a><br><br>";
+                    if (libro.getEstadoLibro().equals("pedir")) {
+                        resultado += "<br><br><a target='_blank' class='btn btn-outline-primary py-md-3 px-md-5 mt-2' onclick='mostrarModalPedir(" + libro.getCodigo() + ")'>Prestamo</a><br><br>";
                     }
-                    if(libro.getEstadoLibro().equals("devolver")){
-                    resultado += "<br><br><a target='_blank' class='btn btn-outline-danger py-md-3 px-md-5 mt-2' onclick='mostrarModalDevolver(" + libro.getCodigo() + ")'>Devolver</a><br><br>";
+                    if (libro.getEstadoLibro().equals("devolver")) {
+                        resultado += "<br><br><a target='_blank' class='btn btn-outline-danger py-md-3 px-md-5 mt-2' onclick='mostrarModalDevolver(" + libro.getCodigo() + ")'>Devolver</a><br><br>";
                     }
                     resultado += "</div>";
                     resultado += "</div>";
+                }
+                libro = libro.siguiente;
+            }
+        }
+        if (libro == null && !usuarioTieneLibros) {
+            resultado += "<div class='col-12'>";
+            resultado += "<div class='alert alert-info' role='alert'>";
+            resultado += "No se encontraron libros en prestamo.";
+            resultado += "</div>";
+            resultado += "</div>";
+        }
+        return resultado;
+    }
+
+    public String MostrarListaBusqueda(int codigoUsuario, String buscar) {
+
+        Libros libro = this.primerNodo;
+        String resultado = "";
+        boolean usuarioTieneLibros = false; // Variable para verificar si el usuario tiene libros
+
+        if (libro != null) {
+            while (libro != null) {
+                if ((codigoUsuario == libro.getCodigoUsuario()) && libro.getTitulo().toLowerCase().contains(buscar.toLowerCase()) || libro.getAutor().toLowerCase().contains(buscar.toLowerCase())) {
+                    usuarioTieneLibros = true; // El usuario tiene al menos un libro
+                    resultado += "<div class='col-lg-4 col-md-6 mb-4' style='margin-right: 0px;'>";
+                    resultado += "<div class='cardList service-item bg-white text-center mb-2 py-3 px-4'>";
+                    resultado += "<div class='dropdown dropdown-left'>"; // Agrega la clase 'dropdown-left'
+                    resultado += "<button class='btn btn-secondary dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>";
+                    resultado += "";
+                    resultado += "</button>";
+                    resultado += "<ul class='dropdown-menu'>";
+                    resultado += "<li><button class='dropdown-item' type='button' onclick='mostrarModalEditar(" + libro.getCodigo() + ")'>Editar</button></li>";
+                    resultado += "<li><button class='dropdown-item' type='button' data-bs-toggle=\"modal\" data-bs-target=\"#exampleModalDetalles\" data-nombre='" + libro.getCodigo() + "'>Visualizar</button></li>";
+                    resultado += "</ul>";
+                    resultado += "</div>";
+                    resultado += "<h3 class='m-0'>Título: " + libro.getTitulo() + "</h3><br>";
+                    resultado += "<p class='m-0'>Autor: " + libro.getAutor() + "</p>";
+                    resultado += "<p class='m-0'>Año de Publicación: " + libro.getAnioPublicacion() + "</p><br>";
+                    resultado += "<img src='imgLibros/" + libro.getFotoPortada() + "'alt='Portada del libro' style='width: 70%; height: 230px;'/>";
+                    if (libro.getEstadoLibro().equals("pedir")) {
+                        resultado += "<br><br><a target='_blank' class='btn btn-outline-primary py-md-3 px-md-5 mt-2' onclick='mostrarModalPedir(" + libro.getCodigo() + ")'>Prestamo</a><br><br>";
+                    }
+                    if (libro.getEstadoLibro().equals("devolver")) {
+                        resultado += "<br><br><a target='_blank' class='btn btn-outline-danger py-md-3 px-md-5 mt-2' onclick='mostrarModalDevolver(" + libro.getCodigo() + ")'>Devolver</a><br><br>";
+                    }
+                    resultado += "</div>";
+                    resultado += "</div>";
+  
                 }
                 libro = libro.siguiente;
             }
@@ -293,7 +341,7 @@ public class Lista implements Serializable {
 
         return false; // El usuario no tiene libros en la lista
     }
-    
+
     // Método para buscar un libro por código en la lista
     public Libros buscarLibroPorCodigo(int codigo) {
         Libros libro = this.primerNodo;

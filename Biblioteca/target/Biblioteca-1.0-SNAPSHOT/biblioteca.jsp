@@ -38,6 +38,12 @@
 <link href="style/style.css" rel="stylesheet">
 
 <%
+    String buscar = (String) session.getAttribute("buscar");
+
+    if (buscar == null) {
+        buscar = "";
+    }
+
     // Crear una instancia de la clase ListasEnlazadas
     Lista listaEnlazada = new Lista();
 
@@ -115,33 +121,44 @@
     </div>
 </div>
 
-<div class="container-fluid py-5">
-    <div class="row justify-content-end">
-        <div class="col-lg-3 col-md-2 col-sm-2 mb-2" style="margin-right: 250px; margin-top: 18px">
-            <div class="input-group"> 
-                <input style="height: 45px;" type="text" class="form-control" id="busqueda" placeholder="Buscar">
-                <button style="height: 45px;" class="btn btn-primary float-right" type="submit">Buscar</button>
+<form action="SvBuscar" method="POST">
+    <div class="container-fluid py-5">
+        <div class="row justify-content-end">
+            <div class="col-lg-3 col-md-2 col-sm-2 mb-2" style="margin-right: 250px; margin-top: 18px">
+                <div class="input-group"> 
+                    <input style="height: 45px;" type="text" class="form-control" name="buscar" placeholder="Buscar">
+                    <button style="height: 45px;" class="btn btn-primary float-right" type="submit">Buscar</button>
+                </div>
+            </div>
+        </div><br>
+
+        <div class="container pt-5 pb-3">
+            <div class="text-center mb-3 pb-3">
+                <h5 class="text-primary text-uppercase" style="letter-spacing: 5px">Todos los libros registrados</h5>
+                <h1>Libros</h1><br><br>
+            </div>
+
+            <div class="row gx-5 justify-content-center d-flex">
+                <%
+                    // Recuperar el valor del atributo "codigo" de la sesión
+                    int codigoUsuario = (int) session.getAttribute("codigoUsuario");
+
+                    String tablaTareas = "";
+
+                    if (buscar != null && !buscar.isEmpty()) {
+                        tablaTareas = listaEnlazada.MostrarListaBusqueda(codigoUsuario, buscar);
+                    } else {
+                        tablaTareas = listaEnlazada.MostrarLista(codigoUsuario);
+                    }
+                    out.println(tablaTareas);
+                    
+        // Elimina el atributo "estado" del objeto request
+        session.removeAttribute("buscar");
+                %>
             </div>
         </div>
-    </div><br>
-
-    <div class="container pt-5 pb-3">
-        <div class="text-center mb-3 pb-3">
-            <h5 class="text-primary text-uppercase" style="letter-spacing: 5px">Todos los libros registrados</h5>
-            <h1>Libros</h1><br><br>
-        </div>
-
-        <div class="row gx-5 justify-content-center d-flex">
-            <%
-                // Recuperar el valor del atributo "codigo" de la sesión
-                int codigoUsuario = (int) session.getAttribute("codigoUsuario");
-                // Llama al método MostrarLista() para generar la representación HTML de la lista de libros
-                String listaLibrosHTML = listaEnlazada.MostrarLista(codigoUsuario);
-                out.println(listaLibrosHTML);
-            %>
-        </div>
     </div>
-</div>
+</form>
 
 <center>
     <!-- Botón que redirige a la página inicial (index) -->
