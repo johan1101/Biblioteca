@@ -17,7 +17,7 @@
     .gx-5 {
         --bs-gutter-y: 2rem;
     }
-    
+
     .modal-ancho .modal-dialog {
         max-width: 50%; /* Ajusta el valor para el ancho deseado */
     }
@@ -38,6 +38,12 @@
 <link href="style/style.css" rel="stylesheet">
 
 <%
+    String buscar = (String) session.getAttribute("buscarP");
+
+    if (buscar == null) {
+        buscar = "";
+    }
+
     // Crear una instancia de la clase ListasEnlazadas
     Lista listaEnlazada = new Lista();
 
@@ -80,7 +86,7 @@
                     <a href="inicio.jsp" class="nav-item nav-link">Inicio</a> 
                     <a href="agregarLibro.jsp" class="nav-item nav-link">Agregar libro</a> 
                     <a href="biblioteca.jsp" class="nav-item nav-link">Listado de libros</a>
-                                        <a href="librosPrestamo.jsp" class="nav-item nav-link active">Prestamos</a>
+                    <a href="librosPrestamo.jsp" class="nav-item nav-link active">Prestamos</a>
                     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
@@ -115,37 +121,48 @@
     </div>
 </div>
 
-<div class="container-fluid py-5">
-    <div class="row justify-content-end">
-        <div class="col-lg-3 col-md-2 col-sm-2 mb-2" style="margin-right: 250px; margin-top: 18px">
-            <div class="input-group"> 
-                <input style="height: 45px;" type="text" class="form-control" id="busqueda" placeholder="Buscar">
-                <button style="height: 45px;" class="btn btn-primary float-right" type="submit">Buscar</button>
+<form action="BuscarPrestamos" method="GET">                  
+    <div class="container-fluid py-5">
+        <div class="row justify-content-end">
+            <div class="col-lg-3 col-md-2 col-sm-2 mb-2" style="margin-right: 250px; margin-top: 18px">
+                <div class="input-group"> 
+                    <input style="height: 45px;" type="text" class="form-control" id="busqueda" name="buscar" placeholder="Buscar">
+                    <button style="height: 45px;" class="btn btn-primary float-right" type="submit">Buscar</button>
+                </div>
+            </div>
+        </div><br>
+
+        <div class="container pt-5 pb-3">
+            <div class="text-center mb-3 pb-3">
+                <h5 class="text-primary text-uppercase" style="letter-spacing: 5px">Todos los libros en prestamo</h5>
+                <h1>Libros</h1><br><br>
+            </div>
+
+            <div class="row gx-5 justify-content-center d-flex">
+                <%
+                    // Recuperar el valor del atributo "codigo" de la sesión
+                    int codigoUsuario = (int) session.getAttribute("codigoUsuario");
+                    String listaLibrosHTML = "";
+
+                    if (buscar != null && !buscar.isEmpty()) {
+                        listaLibrosHTML = listaEnlazada.MostrarListaBusquedaPrestados(codigoUsuario, buscar);
+                    } else {
+                        // Llama al método MostrarLista() para generar la representación HTML de la lista de libros
+                        listaLibrosHTML = listaEnlazada.MostrarListaPrestados(codigoUsuario);
+                    }
+                    out.println(listaLibrosHTML);
+
+                    // Elimina el atributo "estado" del objeto request
+                    session.removeAttribute("buscarP");
+                %>
             </div>
         </div>
-    </div><br>
-
-    <div class="container pt-5 pb-3">
-        <div class="text-center mb-3 pb-3">
-            <h5 class="text-primary text-uppercase" style="letter-spacing: 5px">Todos los libros en prestamo</h5>
-            <h1>Libros</h1><br><br>
-        </div>
-
-        <div class="row gx-5 justify-content-center d-flex">
-            <%
-                // Recuperar el valor del atributo "codigo" de la sesión
-                int codigoUsuario = (int) session.getAttribute("codigoUsuario");
-                // Llama al método MostrarLista() para generar la representación HTML de la lista de libros
-                String listaLibrosHTML = listaEnlazada.MostrarListaPrestados(codigoUsuario);
-                out.println(listaLibrosHTML);
-            %>
-        </div>
     </div>
-</div>
+</form>
 
 <center>
     <!-- Botón que redirige a la página inicial (index) -->
-    <a href='biblioteca.jsp' class='btn btn-primary py-md-3 px-md-5 mt-2'style='margin-right: 30px;'>Todos los libros</a>
+    <a href='librosPrestamo.jsp' class='btn btn-primary py-md-3 px-md-5 mt-2'style='margin-right: 30px;'>Todos los libros</a>
 </center><br><br>
 
 <!----------------------------------------------------- VENTANAS MODALES ----------------------------------------------------->
@@ -226,15 +243,15 @@
 %>
 
 <script>
- var codigoDevolver;
+    var codigoDevolver;
     function mostrarModalDevolver(codigo) {
 
         $('#devolverLibro').modal('show');
 
-         codigoDevolver = codigo;
+        codigoDevolver = codigo;
     }
-    
-        function devolver() {
+
+    function devolver() {
 
         var codigo = codigoDevolver;
 
@@ -252,8 +269,8 @@
             }
         });
     }
-    
-    
+
+
     var codigoE = "";
     function mostrarModalEditar(codigo) {
         var ventana = "prestamos";
@@ -303,8 +320,8 @@
             }
         });
     });
-    
-        $('#editar').on('show.bs.modal', function (event) {
+
+    $('#editar').on('show.bs.modal', function (event) {
         // Obtiene el botón que desencadenó el evento de mostrar el modal
         var button = $(event.relatedTarget);
 
