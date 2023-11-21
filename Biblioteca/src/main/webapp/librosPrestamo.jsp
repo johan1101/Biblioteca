@@ -194,24 +194,11 @@
                 <div class="form">
                     <form action="SvEditar" method="POST" enctype="multipart/form-data">
                         <h2>Editar libro</h2>
-                        <div class="form-element">
-                            <label for="email">Titulo</label>
-                            <input type="text" id="nuevoTitulo" name="nuevoTitulo" placeholder="Ingrese el nuevo titulo" maxlength="20" required>
+                        <div id="libro">
+
                         </div>
-                        <div class="form-element">
-                            <label for="email">Autor</label>
-                            <input type="text" id="nuevoAutor" name="nuevoAutor" placeholder="Ingrese el nuevo autor" maxlength="20" required>
-                        </div>
-                        <div class="form-element">
-                            <label for="email">Fecha de publicación</label>
-                            <br><input type="date" id="nuevaFecha" name="nuevaFecha" required>
-                        </div>
-                        <div class="form-element">
-                            <label for="email">Imagen</label>
-                            <br><input type="file" id="imagen" name="imagen" maxlength="20" required>
-                        </div>
-                        <div class="form-element">
-                            <button type="submit">Editar</button>
+                        <div class='form-element'>
+                            <button type='submit'>Editar</button>
                         </div>
                     </form>
                 </div>
@@ -307,6 +294,34 @@
 
                 // Actualiza el contenido del modal con los detalles del libro
                 $('#libro-details').html(data);
+            },
+            error: function () {
+                // La función que se ejecuta en caso de error durante la solicitud AJAX
+
+                // Maneja errores aquí si es necesario, por ejemplo, muestra un mensaje en la consola
+                console.log('Error al cargar los detalles del libro');
+            }
+        });
+    });
+    
+        $('#editar').on('show.bs.modal', function (event) {
+        // Obtiene el botón que desencadenó el evento de mostrar el modal
+        var button = $(event.relatedTarget);
+
+        // Obtiene el nombre del perro desde el atributo 'data-nombre' del botón
+        var codigo = button.data('codigo');
+
+        console.log(codigo);
+
+        // Realiza una solicitud AJAX al servlet para obtener los detalles del libro por su codigo
+        $.ajax({
+            url: 'SvMostrarInformacionEditar?codigo=' + codigo, // La URL del servlet, puede variar según la configuración
+            method: 'GET', // Método HTTP utilizado para la solicitud
+            success: function (data) {
+                // La función que se ejecuta cuando la solicitud AJAX es exitosa
+
+                // Actualiza el contenido del modal con los detalles del libro
+                $('#libro').html(data);
             },
             error: function () {
                 // La función que se ejecuta en caso de error durante la solicitud AJAX

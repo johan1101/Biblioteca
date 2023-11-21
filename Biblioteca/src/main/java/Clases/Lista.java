@@ -148,9 +148,12 @@ public class Lista implements Serializable {
                     resultado += "";
                     resultado += "</button>";
                     resultado += "<ul class='dropdown-menu'>";
-                    resultado += "<li><button class='dropdown-item' type='button' onclick='mostrarModalEditar(" + libro.getCodigo() + ")'>Editar</button></li>";
+                    resultado += "<li><button class='dropdown-item' type='button' data-bs-toggle=\"modal\" data-bs-target=\"#editar\" data-codigo=" + libro.getCodigo() + " onclick='mostrarModalEditar(" + libro.getCodigo() + ")'>Editar</button></li>";
                     resultado += "<li><button class='dropdown-item' type='button' data-bs-toggle=\"modal\" data-bs-target=\"#exampleModalDetalles\" data-nombre='" + libro.getCodigo() + "'>Visualizar</button></li>";
-                    resultado += "<li><button class='dropdown-item' type='button' onclick='mostrarModalEliminar(" + libro.getCodigo() + ")'>Eliminar</button></li>";
+                    if (libro.getEstadoLibro().equals("pedir")) {
+                        resultado += "<li><button class='dropdown-item' type='button' onclick='mostrarModalEliminar(" + libro.getCodigo() + ")'>Eliminar</button></li>";
+                    }
+
                     resultado += "</ul>";
                     resultado += "</div>";
                     resultado += "<h3 class='m-0'>Título: " + libro.getTitulo() + "</h3><br>";
@@ -196,7 +199,7 @@ public class Lista implements Serializable {
                     resultado += "";
                     resultado += "</button>";
                     resultado += "<ul class='dropdown-menu'>";
-                    resultado += "<li><button class='dropdown-item' type='button' onclick='mostrarModalEditar(" + libro.getCodigo() + ")'>Editar</button></li>";
+                    resultado += "<li><button class='dropdown-item' type='button' data-bs-toggle=\"modal\" data-bs-target=\"#editar\" data-codigo=" + libro.getCodigo() + " onclick='mostrarModalEditar(" + libro.getCodigo() + ")'>Editar</button></li>";
                     resultado += "<li><button class='dropdown-item' type='button' data-bs-toggle=\"modal\" data-bs-target=\"#exampleModalDetalles\" data-nombre='" + libro.getCodigo() + "'>Visualizar</button></li>";
                     resultado += "</ul>";
                     resultado += "</div>";
@@ -243,7 +246,7 @@ public class Lista implements Serializable {
                     resultado += "";
                     resultado += "</button>";
                     resultado += "<ul class='dropdown-menu'>";
-                    resultado += "<li><button class='dropdown-item' type='button' onclick='mostrarModalEditar(" + libro.getCodigo() + ")'>Editar</button></li>";
+                    resultado += "<li><button class='dropdown-item' type='button' data-bs-toggle=\"modal\" data-bs-target=\"#editar\" data-codigo=" + libro.getCodigo() + " onclick='mostrarModalEditar(" + libro.getCodigo() + ")'>Editar</button></li>";
                     resultado += "<li><button class='dropdown-item' type='button' data-bs-toggle=\"modal\" data-bs-target=\"#exampleModalDetalles\" data-nombre='" + libro.getCodigo() + "'>Visualizar</button></li>";
                     resultado += "</ul>";
                     resultado += "</div>";
@@ -259,7 +262,7 @@ public class Lista implements Serializable {
                     }
                     resultado += "</div>";
                     resultado += "</div>";
-  
+
                 }
                 libro = libro.siguiente;
             }
@@ -298,22 +301,26 @@ public class Lista implements Serializable {
                     libro.setTitulo(nuevoTitulo);
                     libro.setAutor(nuevoAutor);
                     libro.setAnioPublicacion(nuevaFecha);
-                    libro.setFotoPortada(imagen);
+                    if (!imagen.equals("")) {
+                        libro.setFotoPortada(imagen);
+                    }
 
-                    String uploadPath = context.getRealPath("/imgLibros");
+                    if (filePart != null) {
+                        String uploadPath = context.getRealPath("/imgLibros");
 
-                    // Construir la ruta completa del archivo de imagen en el servidor
-                    String filePath = uploadPath + File.separator + imagen;
+                        // Construir la ruta completa del archivo de imagen en el servidor
+                        String filePath = uploadPath + File.separator + imagen;
 
-                    //Abrir un flujo de entrada para el archivo de imagen recibido
-                    try (InputStream fileContent = filePart.getInputStream(); FileOutputStream outputStream = new FileOutputStream(filePath)) {
+                        //Abrir un flujo de entrada para el archivo de imagen recibido
+                        try (InputStream fileContent = filePart.getInputStream(); FileOutputStream outputStream = new FileOutputStream(filePath)) {
 
-                        int read;
-                        byte[] buffer = new byte[1024];
+                            int read;
+                            byte[] buffer = new byte[1024];
 
-                        //Leer el archivo de imagen y escribirlo en el servidor
-                        while ((read = fileContent.read(buffer)) != -1) {
-                            outputStream.write(buffer, 0, read);
+                            //Leer el archivo de imagen y escribirlo en el servidor
+                            while ((read = fileContent.read(buffer)) != -1) {
+                                outputStream.write(buffer, 0, read);
+                            }
                         }
                     }
                 }
@@ -322,6 +329,24 @@ public class Lista implements Serializable {
         }
     }
 
+        public void editarLibroI(int codigo, String nuevoTitulo, String nuevoAutor, String nuevaFecha, ServletContext context) throws FileNotFoundException, IOException {
+        // Directorio de carga en el servidor donde se guardarán las imágenes
+
+        if (!estaVacia()) {
+            Libros libro = primerNodo;
+
+            while (libro != null) {
+                if (libro.getCodigo() == codigo) {
+
+                    libro.setTitulo(nuevoTitulo);
+                    libro.setAutor(nuevoAutor);
+                    libro.setAnioPublicacion(nuevaFecha);
+                }
+                libro = libro.getSiguiente();
+            }
+        }
+    }
+    
     /**
      * Verifica si un usuario específico tiene libros en la lista.
      *
@@ -344,6 +369,18 @@ public class Lista implements Serializable {
 
     // Método para buscar un libro por código en la lista
     public Libros buscarLibroPorCodigo(int codigo) {
+        Libros libro = this.primerNodo;
+
+        while (libro != null) {
+            if (codigo == libro.getCodigo()) {
+                return libro;
+            }
+            libro = libro.siguiente;
+        }
+        return null; // El usuario no tiene libros en la lista
+    }
+
+    public Libros buscarLibroPorCodigoEditar(int codigo) {
         Libros libro = this.primerNodo;
 
         while (libro != null) {

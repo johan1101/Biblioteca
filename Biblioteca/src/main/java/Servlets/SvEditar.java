@@ -62,16 +62,21 @@ public class SvEditar extends HttpServlet {
         System.out.println("Corriendo metodo para editar");
 
         String codigo = (String) session.getAttribute("codigo");
+
         String ventana = (String) session.getAttribute("ventana");
 
         Part filePart = request.getPart("imagen");
+
         String nuevoTitulo = request.getParameter("nuevoTitulo");
         String nuevoAutor = request.getParameter("nuevoAutor");
         String nuevaFecha = request.getParameter("nuevaFecha");
-
+        String fileName = "";
+        if(filePart == null){
         // Obtener el nombre del archivo de imagen enviado
-        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-
+       fileName = "";
+        }else{
+                fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        }
         try {
             listaLibros = Serializacion.leerArchivoLibros(context);
         } catch (ClassNotFoundException ex) {
@@ -79,7 +84,12 @@ public class SvEditar extends HttpServlet {
         }
         int codigoN = Integer.parseInt(codigo);
 
-        listaLibros.editarLibro(codigoN, nuevoTitulo, nuevoAutor, nuevaFecha, fileName, context, filePart);
+        if(fileName.equals("")){
+               listaLibros.editarLibroI(codigoN, nuevoTitulo, nuevoAutor, nuevaFecha, context);
+        }else{
+                    listaLibros.editarLibro(codigoN, nuevoTitulo, nuevoAutor, nuevaFecha, fileName, context, filePart);
+        }
+
 
         Serializacion.escribirArchivoLibros(listaLibros, context);
 
