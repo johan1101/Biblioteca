@@ -65,7 +65,7 @@ public class SvMostrarInformacionEditar extends HttpServlet {
                     + "</div>"
                     + "<div class='form-element'>"
                     + "<label for='email'>Imagen</label>"
-                    + "<input type='file' id='imagen' name='imagen' maxlength='20'>"
+                    + "<input type='file' id='imagen' name='imagen' maxlength='20' accept=\".jpg, .jpeg, .png\">"
                     + "</div>";
 
 
